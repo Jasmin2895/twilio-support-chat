@@ -4,11 +4,12 @@
   "description": "Starter Server Application for Node.js",
   "main": "app.js",
   "scripts": {
-    "dev": "node app.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "NODE_ENV=test && jest",
-    "proxy": "http://localhost:3000"
+    "proxy": "http://localhost:3000",
+    "server": "node-env-run app.js --exec nodemon | pino-colada",
+    "dev": "run-p server start"
   },
   "repository": {
     "type": "git",
@@ -30,9 +31,14 @@
     "twilio": "^3.36.0"
   },
   "devDependencies": {
+    "express-pino-logger": "^4.0.0",
     "jest": "^24.9.0",
     "jest-extended": "^0.11.2",
     "jsonwebtoken": "^8.5.1",
+    "node-env-run": "^3.0.2",
+    "nodemon": "^2.0.3",
+    "npm-run-all": "^4.1.5",
+    "pino-colada": "^1.6.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-monaco-editor": "^0.34.0",
