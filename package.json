@@ -4,7 +4,9 @@
   "description": "Starter Server Application for Node.js",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "dev": "node app.js",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "NODE_ENV=test && jest",
     "proxy": "http://localhost:3000"
   },
@@ -31,11 +33,29 @@
     "jest": "^24.9.0",
     "jest-extended": "^0.11.2",
     "jsonwebtoken": "^8.5.1",
-    "react-scripts": "^3.4.1"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-monaco-editor": "^0.34.0",
+    "react-redux": "^7.2.0",
+    "react-scripts": "3.4.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
   },
   "jest": {
     "setupFilesAfterEnv": [
       "jest-extended"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
     ]
   }
 }
