@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "Starter Server Application for Node.js",
   "main": "app.js",
+  "proxy": "http://localhost:3001",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "NODE_ENV=test && jest",
-    "proxy": "http://localhost:3000",
     "server": "node-env-run app.js --exec nodemon | pino-colada",
     "dev": "run-p server start"
   },

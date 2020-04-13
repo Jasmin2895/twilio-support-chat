@@ -1,35 +1,36 @@
 import React, { Component } from "react";
-import $ from jQuery;
+import $ from "jquery";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state= {
-      messages:[],
-      username: null
-    }
+    this.state = {
+      messages: [],
+      username: null,
+    };
   }
   componentDidMount = () => {
-    this.getToken()
-    .catch((error)=> {
+    this.getToken().catch((error) => {
       this.setState({
-        messages: [...this.state.messages, {body: `Error: ${error.message}`}]
-      })
-    })
-  }
-  
+        messages: [...this.state.messages, { body: `Error: ${error.message}` }],
+      });
+    });
+  };
+
   getToken = () => {
-    return new Promise((resolve, reject)=> {
-      this.setState({messages: [...this.state.messages, {body: `Connecting...`}]})
-    
-      $.getJSON('/token', (token)=> {
-        this.setState({username: token.identity})
-        resolve(token)
-      }).fail(()=> {
-        reject(Error("failed to connect..."))
-      })
-    })
-  }
+    return new Promise((resolve, reject) => {
+      this.setState({
+        messages: [...this.state.messages, { body: `Connecting...` }],
+      });
+
+      $.getJSON("/token", (token) => {
+        this.setState({ username: token.identity });
+        resolve(token);
+      }).fail(() => {
+        reject(Error("failed to connect..."));
+      });
+    });
+  };
   render() {
     return (
       <div className="chat">
