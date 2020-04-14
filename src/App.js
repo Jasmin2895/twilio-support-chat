@@ -19,6 +19,7 @@ class App extends Component {
     this.getToken()
       .then(this.createChatClient)
       .then(this.joinGeneralChannel)
+      .then(this.configureChannelEvents)
       .catch((error) => {
         this.addMessage({ body: `Error: ${error.message}` });
       });
@@ -28,6 +29,25 @@ class App extends Component {
     console.log("token", token);
     return new Promise((resolve, reject) => {
       resolve(new Chat.Client.create(token.jwt));
+    });
+  };
+
+  handleNewMessage = (text) => {
+    if (this.state.channel) {
+      this.state.channel.sendMessage(text);
+    }
+  };
+  configureChannelEvents = (channel) => {
+    channel.on("messageAdded", ({ author, body }) => {
+      this.addMessage({ author, body });
+    });
+
+    channel.on("memberJoined", (member) => {
+      this.addMessage({ body: `${member.identity} has joined the channel.` });
+    });
+
+    channel.on("memberLeft", (member) => {
+      this.addMessage({ body: `${member.identity} has left the channel.` });
     });
   };
 
@@ -66,6 +86,16 @@ class App extends Component {
     });
   };
 
+  createGeneralChannel = (chatClient) => {
+    return new Promise((resolve, reject) => {
+      this.addMessage({ body: "Creating general channel..." });
+      chatClient
+        .createChannel({ uniqueName: "general", friendlyName: "General Chat" })
+        .then(() => this.joinGeneralChannel(chatClient))
+        .catch(() => reject(Error("Could not create general channel.")));
+    });
+  };
+
   joinGeneralChannel = (chatClient) => {
     return new Promise((resolve, reject) => {
       chatClient
@@ -91,7 +121,7 @@ class App extends Component {
 
               resolve(channel);
             })
-            .catch(() => reject(Error("Could not find general channel.")));
+            .catch(() => this.createGeneralChannel(chatClient));
         })
         .catch(() => reject(Error("Could not get channel list.")));
     });
