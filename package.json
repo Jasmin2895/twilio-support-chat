@@ -1,70 +1,19 @@
 {
-  "name": "sdk-starter-node",
-  "version": "1.0.0",
-  "description": "Starter Server Application for Node.js",
-  "main": "app.js",
+  "name": "react-chat-interface",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "prop-types": "^15.5.10",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-scripts": "^1.0.11"
+  },
   "proxy": "http://localhost:3001",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "NODE_ENV=test && jest",
-    "server": "node-env-run app.js --exec nodemon | pino-colada",
-    "dev": "run-p server start"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TwilioDevEd/sdk-starter-node.git"
-  },
-  "author": "Twilio Developer Education",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/TwilioDevEd/sdk-starter-node/issues"
-  },
-  "homepage": "https://github.com/TwilioDevEd/sdk-starter-node#readme",
-  "dependencies": {
-    "body-parser": "^1.19.0",
-    "camelcase": "^5.3.1",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "extend": "^3.0.2",
-    "jquery": "^3.5.0",
-    "pug": "^2.0.4",
-    "twilio": "^3.36.0"
-  },
-  "devDependencies": {
-    "prettier": "^1.19.1",
-    "express-pino-logger": "^4.0.0",
-    "jest": "^24.9.0",
-    "jest-extended": "^0.11.2",
-    "jsonwebtoken": "^8.5.1",
-    "node-env-run": "^3.0.2",
-    "nodemon": "^2.0.3",
-    "npm-run-all": "^4.1.5",
-    "pino-colada": "^1.6.1",
-    "classnames": "^2.2.5",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-monaco-editor": "^0.34.0",
-    "react-redux": "^7.2.0",
-    "react-scripts": "3.4.0",
-    "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
-  },
-  "jest": {
-    "setupFilesAfterEnv": [
-      "jest-extended"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }
