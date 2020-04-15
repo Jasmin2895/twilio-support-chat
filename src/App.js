@@ -18,6 +18,7 @@ class App extends Component {
   componentDidMount = () => {
     this.getToken()
       .then(this.createChatClient)
+      .then(this.createPersonalChannel)
       .then(this.joinGeneralChannel)
       .then(this.configureChannelEvents)
       .catch((error) => {
@@ -85,7 +86,26 @@ class App extends Component {
     });
   };
 
+  createPersonalChannel = (chatClient) => {
+    console.log("createPersonalChannel", chatClient);
+    return new Promise((resolve, reject) => {
+      this.addMessage({ body: "Initiating a chat with a customer" });
+      chatClient
+        .createChannel({
+          uniqueName: "Chat Support",
+          friendlyName: "Customer Chat Support",
+          isPrivate: true,
+        })
+        .then((channel) => {
+          console.log("new channel created");
+          console.log(channel);
+        })
+        .catch(() => reject(Error("Could not create new channel")));
+    });
+  };
+
   joinGeneralChannel = (chatClient) => {
+    console.log("joinGeneralChannel", chatClient);
     return new Promise((resolve, reject) => {
       chatClient
         .getSubscribedChannels()
@@ -93,6 +113,7 @@ class App extends Component {
           chatClient
             .getChannelByUniqueName("general")
             .then((channel) => {
+              console.log("channel", channel);
               this.addMessage({ body: "Joining general channel..." });
               this.setState({ channel });
 
