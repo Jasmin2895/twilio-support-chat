@@ -18,8 +18,7 @@ class App extends Component {
   componentDidMount = () => {
     this.getToken()
       .then(this.createChatClient)
-      .then(this.createPersonalChannel)
-      .then(this.joinGeneralChannel)
+      .then(this.joinPersonalChannel)
       .then(this.configureChannelEvents)
       .catch((error) => {
         this.addMessage({ body: `Error: ${error.message}` });
@@ -76,64 +75,61 @@ class App extends Component {
     });
   };
 
-  createGeneralChannel = (chatClient) => {
-    return new Promise((resolve, reject) => {
-      this.addMessage({ body: "Creating general channel..." });
-      chatClient
-        .createChannel({ uniqueName: "general", friendlyName: "General Chat" })
-        .then(() => this.joinGeneralChannel(chatClient))
-        .catch(() => reject(Error("Could not create general channel.")));
-    });
-  };
-
   createPersonalChannel = (chatClient) => {
     console.log("createPersonalChannel", chatClient);
     return new Promise((resolve, reject) => {
       this.addMessage({ body: "Initiating a chat with a customer" });
       chatClient
         .createChannel({
-          uniqueName: "Chat Support",
+          uniqueName: "support_cha",
           friendlyName: "Customer Chat Support",
-          isPrivate: true,
         })
-        .then((channel) => {
-          console.log("new channel created");
-          console.log(channel);
+        .then(() => {
+          this.joinPersonalChannel(chatClient);
         })
         .catch(() => reject(Error("Could not create new channel")));
     });
   };
 
-  joinGeneralChannel = (chatClient) => {
-    console.log("joinGeneralChannel", chatClient);
+  joinPersonalChannel = (chatClient) => {
+    console.log("joinPersonalChannel", chatClient);
     return new Promise((resolve, reject) => {
       chatClient
         .getSubscribedChannels()
         .then(() => {
           chatClient
-            .getChannelByUniqueName("general")
+            .getChannelByUniqueName("support_cha")
             .then((channel) => {
-              console.log("channel", channel);
-              this.addMessage({ body: "Joining general channel..." });
+              this.addMessage({ body: "Welcome to support chat..." });
               this.setState({ channel });
 
               channel
                 .join()
                 .then(() => {
                   this.addMessage({
-                    body: `Joined general channel as ${this.state.username}`,
+                    body: `You can ask your queries here as ${this.state.username}`,
                   });
                   window.addEventListener("beforeunload", () =>
                     channel.leave()
                   );
                 })
-                .catch(() => reject(Error("Could not join general channel.")));
+                .catch(() => {
+                  reject(Error("Unable to connect to chat"));
+                });
+
+              channel.on("typingStarted", function (member) {
+                console.log(member.identity + "is currently typing.");
+              });
 
               resolve(channel);
             })
-            .catch(() => this.createGeneralChannel(chatClient));
+            .catch(() => {
+              this.createPersonalChannel(chatClient);
+            });
         })
-        .catch(() => reject(Error("Could not get channel list.")));
+        .catch(() => {
+          reject(Error("Could not connect you to chat support!"));
+        });
     });
   };
 
