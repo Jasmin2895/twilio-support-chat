@@ -109,6 +109,7 @@ class App extends Component {
                   this.addMessage({
                     body: `You can ask your queries here as ${this.state.username}`,
                   });
+                  console.log("before");
                   window.addEventListener("beforeunload", () =>
                     channel.leave()
                   );
@@ -120,7 +121,10 @@ class App extends Component {
               channel.on("typingStarted", function (member) {
                 console.log(member.identity + "is currently typing.");
               });
-
+              // Listen for members typing
+              channel.on("typingEnded", function (member) {
+                console.log(member.identity + "has stopped typing.");
+              });
               resolve(channel);
             })
             .catch(() => {
