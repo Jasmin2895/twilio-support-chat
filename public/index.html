@@ -1,66 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Twilio Server Starter Kit</title>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
 
-  <link rel="stylesheet" crossorigin="anonymous"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u">
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>Programmable Chat</title>
+    <style>
+      body {
+        -webkit-font-smoothing: antialiased;
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
 
-  <link rel="stylesheet" href="index.css">
-</head>
-<body>
-  <div class="container">
-    <h1>Twilio Server Starter Kit Environment Setup</h1>
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
 
-    <h2>Account Information</h2>
-    <table class="table table-striped">
-      <tr>
-        <td class="config-key">TWILIO_ACCOUNT_SID</td>
-        <td class="config-value" id="twilioAccountSid"></td>
-      </tr>
-      <tr>
-        <td class="config-key">TWILIO_API_KEY</td>
-        <td class="config-value" id="twilioApiKey"></td>
-      </tr>
-      <tr>
-        <td class="config-key">TWILIO_API_SECRET</td>
-        <td class="config-value" id="twilioApiSecret"></td>
-      </tr>
-    </table>
-
-    <h2>Products</h2>
-    <table class="table table-striped">
-      <tr>
-        <td class="config-product">Notify</td>
-        <td class="config-key">TWILIO_NOTIFICATION_SERVICE_SID</td>
-        <td class="config-value" id="twilioNotificationServiceSid"></td>
-      </tr>
-      <tr>
-        <td class="config-product">Chat</td>
-        <td class="config-key">TWILIO_CHAT_SERVICE_SID</td>
-        <td class="config-value" id="twilioChatServiceSid"></td>
-      </tr>
-      <tr>
-        <td class="config-product">Sync</td>
-        <td class="config-key">TWILIO_SYNC_SERVICE_SID</td>
-        <td class="config-value" id="twilioSyncServiceSid"></td>
-      </tr>
-    </table>
-
-    <h1>Demos</h1>
-    <a id="videoDemoButton" class="btn btn-lg" href="/video/">Video</a>
-    <a id="syncDemoButton" class="btn btn-lg"  href="/sync/">Sync</a>
-    <a id="notifyDemoButton" class="btn btn-lg" href="/notify/">Notify</a>
-    <a id="chatDemoButton" class="btn btn-lg" href="/chat/">Chat</a>
-  </div>
-
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script crossorigin="anonymous"
-    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"></script>
-  <script src="config-check.js"></script>
-</body>
-</script>
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+</html>
