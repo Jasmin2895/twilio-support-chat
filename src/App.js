@@ -26,7 +26,6 @@ class App extends Component {
   };
 
   createChatClient = (token) => {
-    console.log("token", token);
     return new Promise((resolve, reject) => {
       resolve(new Chat.Client.create(token.jwt));
     });
@@ -58,7 +57,6 @@ class App extends Component {
       });
 
       $.getJSON("/token", (token) => {
-        console.log("token get api", token);
         this.setState({ username: token.identity });
         resolve(token);
       }).fail(() => {
@@ -74,15 +72,6 @@ class App extends Component {
     };
     this.setState({
       messages: [...this.state.messages, messageData],
-    });
-  };
-
-  handleNewMessage = (text) => {
-    this.setState({
-      messages: [
-        ...this.state.messages,
-        { me: true, author: "Me", body: text },
-      ],
     });
   };
 
