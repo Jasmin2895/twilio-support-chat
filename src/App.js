@@ -3,7 +3,6 @@ import MessageForm from "./MessageForm";
 import MessageList from "./MessageList";
 import $ from "jquery";
 import "./App.css";
-import { ChallengeContext } from "twilio/lib/rest/authy/v1/service/entity/factor/challenge";
 const Chat = require("twilio-chat");
 
 class App extends Component {
@@ -33,11 +32,24 @@ class App extends Component {
   };
 
   handleNewMessage = (text) => {
-    console.log("text", text);
+    console.log("text", text, this.state.channel.typing());
     if (this.state.channel) {
       this.state.channel.sendMessage(text);
+      this.state.channel
+        .typing()
+        .then(() => {
+          this.state.channel.on("typingStarted", (message) => {
+            console.log("typingStarted message", message);
+          });
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
     }
   };
+
+  getUserTypingDetails = () => {};
+
   configureChannelEvents = (channel) => {
     channel.on("messageAdded", ({ author, body }) => {
       this.addMessage({ author, body });
@@ -68,6 +80,7 @@ class App extends Component {
   };
 
   addMessage = (message) => {
+    console.log("addMessage", message, this.state.username);
     const messageData = {
       ...message,
       me: message.author === this.state.username,
@@ -83,7 +96,7 @@ class App extends Component {
       this.addMessage({ body: "Initiating a chat with a customer" });
       chatClient
         .createChannel({
-          uniqueName: "support_cha",
+          uniqueName: "support_chat1",
           friendlyName: "Customer Chat Support",
         })
         .then(() => {
@@ -100,11 +113,12 @@ class App extends Component {
         .getSubscribedChannels()
         .then(() => {
           chatClient
-            .getChannelByUniqueName("support_cha")
+            .getChannelByUniqueName("support_chat1")
             .then((channel) => {
               console.log("channel", channel);
               this.addMessage({ body: "Welcome to support chat..." });
               this.setState({ channel });
+              console.log("username", this.state.username, this.state.channel);
 
               channel
                 .join()
@@ -117,10 +131,10 @@ class App extends Component {
                     channel.leave()
                   );
                   // typing started event listener not working!
-                  channel.on("typingStarted", function (member) {
-                    //process the member to show typing
-                    this.addMessage({ body: "User started typing" });
-                  });
+                  // channel.on("typingStarted", function (member) {
+                  //   //process the member to show typing
+                  //   this.addMessage({ body: "User started typing" });
+                  // });
                 })
                 .catch(() => {
                   reject(Error("Unable to connect to chat"));
