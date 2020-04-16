@@ -32,7 +32,6 @@ class App extends Component {
   };
 
   handleNewMessage = (text) => {
-    console.log("text", text, this.state.channel.typing());
     if (this.state.channel) {
       this.state.channel
         .typing()
@@ -53,7 +52,6 @@ class App extends Component {
 
   configureChannelEvents = (channel) => {
     channel.on("messageAdded", ({ author, body }) => {
-      console.log("configureChannelEvents called");
       this.addMessage({ author, body });
     });
 
@@ -89,12 +87,6 @@ class App extends Component {
   };
 
   addMessage = (message) => {
-    console.log(
-      "addMessage",
-      message,
-      this.state.username,
-      message.author === this.state.username
-    );
     const messageData = {
       ...message,
       me: message.author === this.state.username,
@@ -105,7 +97,6 @@ class App extends Component {
   };
 
   createPersonalChannel = (chatClient) => {
-    console.log("createPersonalChannel", chatClient);
     return new Promise((resolve, reject) => {
       this.addMessage({ body: "Initiating a chat with a customer" });
       chatClient
@@ -121,7 +112,6 @@ class App extends Component {
   };
 
   joinPersonalChannel = (chatClient) => {
-    console.log("joinPersonalChannel", chatClient);
     return new Promise((resolve, reject) => {
       chatClient
         .getSubscribedChannels()
@@ -129,13 +119,11 @@ class App extends Component {
           chatClient
             .getChannelByUniqueName("support_chat1")
             .then((channel) => {
-              console.log("channel", channel);
               this.addMessage({
                 body: "Welcome to support chat...",
                 type: "info",
               });
               this.setState({ channel });
-              console.log("username", this.state.username, this.state.channel);
 
               channel
                 .join()
@@ -143,7 +131,6 @@ class App extends Component {
                   this.addMessage({
                     body: `You can ask your queries here as ${this.state.username}`,
                   });
-                  console.log("before");
                   window.addEventListener("beforeunload", () =>
                     channel.leave()
                   );

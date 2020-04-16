@@ -12,19 +12,11 @@ class Message extends Component {
   };
 
   render() {
-    console.log(
-      "props",
-      this.props.author,
-      this.props.me,
-      this.props.author === this.props.me,
-      this.props.type
-    );
     const classes = classNames("Message", {
       log: !this.props.author && !this.props.type,
       me: this.props.me,
       info: this.props.type,
     });
-    console.log("classes", classes);
 
     return (
       <div className={classes}>
