@@ -42,7 +42,6 @@ class App extends Component {
               author: member.identity,
               body: `${member.identity} is typing...`,
             });
-            console.log("Sstarted typing..", member.identity);
           });
         })
         .catch((error) => {
@@ -51,8 +50,6 @@ class App extends Component {
       this.state.channel.sendMessage(text);
     }
   };
-
-  getUserTypingDetails = () => {};
 
   configureChannelEvents = (channel) => {
     channel.on("messageAdded", ({ author, body }) => {
@@ -135,11 +132,6 @@ class App extends Component {
                   window.addEventListener("beforeunload", () =>
                     channel.leave()
                   );
-                  // typing started event listener not working!
-                  // channel.on("typingStarted", function (member) {
-                  //   //process the member to show typing
-                  //   this.addMessage({ body: "User started typing" });
-                  // });
                 })
                 .catch(() => {
                   reject(Error("Unable to connect to chat"));
