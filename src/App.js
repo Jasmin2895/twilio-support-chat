@@ -37,10 +37,10 @@ class App extends Component {
         .typing()
         .then(() => {
           this.state.channel.on("typingStarted", (member) => {
-            this.addMessage({
-              author: member.identity,
-              body: `${member.identity} is typing...`,
-            });
+            // this.addMessage({
+            //   author: member.identity,
+            //   body: `${member.identity} is typing...`,
+            // });
           });
         })
         .catch((error) => {
@@ -58,6 +58,7 @@ class App extends Component {
     channel.on("memberJoined", (member) => {
       this.addMessage({
         body: `${member.identity} has joined the channel.`,
+        type: "info",
       });
     });
 
@@ -130,6 +131,7 @@ class App extends Component {
                 .then(() => {
                   this.addMessage({
                     body: `You can ask your queries here as ${this.state.username}`,
+                    type: "info",
                   });
                   window.addEventListener("beforeunload", () =>
                     channel.leave()
