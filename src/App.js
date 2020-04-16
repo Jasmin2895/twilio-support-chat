@@ -3,6 +3,7 @@ import MessageForm from "./MessageForm";
 import MessageList from "./MessageList";
 import $ from "jquery";
 import "./App.css";
+import { ChallengeContext } from "twilio/lib/rest/authy/v1/service/entity/factor/challenge";
 const Chat = require("twilio-chat");
 
 class App extends Component {
@@ -32,6 +33,7 @@ class App extends Component {
   };
 
   handleNewMessage = (text) => {
+    console.log("text", text);
     if (this.state.channel) {
       this.state.channel.sendMessage(text);
     }
@@ -100,6 +102,7 @@ class App extends Component {
           chatClient
             .getChannelByUniqueName("support_cha")
             .then((channel) => {
+              console.log("channel", channel);
               this.addMessage({ body: "Welcome to support chat..." });
               this.setState({ channel });
 
@@ -113,18 +116,15 @@ class App extends Component {
                   window.addEventListener("beforeunload", () =>
                     channel.leave()
                   );
+                  // typing started event listener not working!
+                  channel.on("typingStarted", function (member) {
+                    //process the member to show typing
+                    this.addMessage({ body: "User started typing" });
+                  });
                 })
                 .catch(() => {
                   reject(Error("Unable to connect to chat"));
                 });
-
-              channel.on("typingStarted", function (member) {
-                console.log(member.identity + "is currently typing.");
-              });
-              // Listen for members typing
-              channel.on("typingEnded", function (member) {
-                console.log(member.identity + "has stopped typing.");
-              });
               resolve(channel);
             })
             .catch(() => {
