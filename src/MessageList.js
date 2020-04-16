@@ -13,6 +13,7 @@ class MessageList extends Component {
   };
 
   componentDidUpdate = () => {
+    console.log("messages list", this.props.messages);
     this.node.scrollTop = this.node.scrollHeight;
   };
 

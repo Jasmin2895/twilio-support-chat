@@ -16,3 +16,7 @@
   color: #b6191e;
   float: right;
 }
+
+.Message.info {
+  color: yellowgreen;
+}

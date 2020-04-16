@@ -58,18 +58,25 @@ class App extends Component {
     });
 
     channel.on("memberJoined", (member) => {
-      this.addMessage({ body: `${member.identity} has joined the channel.` });
+      this.addMessage({
+        body: `${member.identity} has joined the channel.`,
+      });
     });
 
     channel.on("memberLeft", (member) => {
-      this.addMessage({ body: `${member.identity} has left the channel.` });
+      this.addMessage({
+        body: `${member.identity} has left the channel.`,
+      });
     });
   };
 
   getToken = () => {
     return new Promise((resolve, reject) => {
       this.setState({
-        messages: [...this.state.messages, { body: `Connecting...` }],
+        messages: [
+          ...this.state.messages,
+          { body: `Connecting...`, type: "info" },
+        ],
       });
 
       $.getJSON("/token", (token) => {
@@ -82,7 +89,12 @@ class App extends Component {
   };
 
   addMessage = (message) => {
-    console.log("addMessage", message, this.state.username);
+    console.log(
+      "addMessage",
+      message,
+      this.state.username,
+      message.author === this.state.username
+    );
     const messageData = {
       ...message,
       me: message.author === this.state.username,
@@ -118,7 +130,10 @@ class App extends Component {
             .getChannelByUniqueName("support_chat1")
             .then((channel) => {
               console.log("channel", channel);
-              this.addMessage({ body: "Welcome to support chat..." });
+              this.addMessage({
+                body: "Welcome to support chat...",
+                type: "info",
+              });
               this.setState({ channel });
               console.log("username", this.state.username, this.state.channel);
 
