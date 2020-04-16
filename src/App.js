@@ -34,17 +34,21 @@ class App extends Component {
   handleNewMessage = (text) => {
     console.log("text", text, this.state.channel.typing());
     if (this.state.channel) {
-      this.state.channel.sendMessage(text);
       this.state.channel
         .typing()
         .then(() => {
-          this.state.channel.on("typingStarted", (message) => {
-            console.log("typingStarted message", message);
+          this.state.channel.on("typingStarted", (member) => {
+            this.addMessage({
+              author: member.identity,
+              body: `${member.identity} is typing...`,
+            });
+            console.log("Sstarted typing..", member.identity);
           });
         })
         .catch((error) => {
           console.log("error", error);
         });
+      this.state.channel.sendMessage(text);
     }
   };
 
@@ -52,6 +56,7 @@ class App extends Component {
 
   configureChannelEvents = (channel) => {
     channel.on("messageAdded", ({ author, body }) => {
+      console.log("configureChannelEvents called");
       this.addMessage({ author, body });
     });
 
