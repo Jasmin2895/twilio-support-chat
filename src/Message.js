@@ -3,6 +3,13 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import "./Message.css";
 
+// <div className={classes}>
+//   {this.props.me ? (
+//     <span>{this.props.body}</span>
+//   ) : (
+//     <span>{this.props.body}</span>
+//   )}
+// </div>
 class Message extends Component {
   static propTypes = {
     author: PropTypes.string,
@@ -18,12 +25,14 @@ class Message extends Component {
       info: this.props.type,
     });
     return (
-      <div className={classes}>
-        {this.props.me ? (
-          <span className="author">{this.props.body}</span>
-        ) : (
-          <span>{this.props.body}</span>
-        )}
+      <div className="Message">
+        <div className="chats">
+          {this.props.me ? (
+            <span className="u2 chat">{this.props.body}</span>
+          ) : (
+            <span className="u1 chat">{this.props.body}</span>
+          )}
+        </div>
       </div>
     );
   }
