@@ -1,6 +1,7 @@
 .Message {
-  line-height: 1.5em;
+  line-height: 1.7em;
   margin: 0 10px 0 0;
+  color: pink;
 }
 
 .Message.log {
@@ -10,13 +11,13 @@
 .Message .author {
   font-weight: bold;
   color: #888;
-  margin: 0 10px 0 0;
+  /* margin: 0 10px 0 0; */
 }
 
 .Message.me .author {
   color: #b6191e;
   float: right;
-  margin: 0 10px 0 0;
+  /* margin: 0 10px 0 0; */
 }
 
 .Message.info {

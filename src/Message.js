@@ -13,11 +13,10 @@ class Message extends Component {
 
   render() {
     const classes = classNames("Message", {
-      log: !this.props.author && !this.props.type,
+      log: !this.props.me && !this.props.type,
       me: this.props.me,
       info: this.props.type,
     });
-
     return (
       <div className={classes}>
         {this.props.me ? (
