@@ -1,11 +1,18 @@
 .Message {
-  line-height: 1.7em;
+  line-height: 2em;
   margin: 0 10px 0 0;
-  color: pink;
 }
 
 .Message.log {
-  color: #bbb;
+  border-radius: 20px;
+  background: #6dbdf1;
+  padding: 10px;
+  width: auto;
+  max-width: 50%;
+  float: left;
+  clear: left;
+  color: white;
+  margin: 10px 0 0 0;
 }
 
 .Message .author {
@@ -15,9 +22,15 @@
 }
 
 .Message.me .author {
-  color: #b6191e;
+  border-radius: 20px;
+  background: #096eb1;
+  padding: 10px;
+  width: auto;
+  max-width: 50%;
   float: right;
-  /* margin: 0 10px 0 0; */
+  clear: left;
+  color: white;
+  margin: 10px 0 0 0;
 }
 
 .Message.info {
