@@ -1,0 +1,38 @@
+.chat-header {
+  padding: 20px;
+  border-bottom: 2px solid white;
+  background: #f2f5f8;
+}
+
+.chat-about {
+  padding-left: 10px;
+  margin-top: 6px;
+  display: flex;
+}
+
+.help-icons {
+  float: right;
+  font-size: 20px;
+  margin-top: 12px;
+}
+
+.icon-image {
+  width: 20px;
+  height: 20px;
+  margin-right: 20px;
+}
+
+.chat-with {
+  font-weight: bold;
+  font-size: 16px;
+  flex: 1;
+}
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}

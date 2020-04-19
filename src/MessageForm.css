@@ -1,29 +1,61 @@
-.MessageForm {
+.send-image {
+  width: 20px;
+  height: 30px;
   display: flex;
-  background: #ccc;
+  margin: auto;
+}
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
 }
 
-.MessageForm .input-container {
-  flex: 1;
-  margin: 1px;
+.chat-message {
+  padding: 30px;
+  background: #f2f5f8;
 }
 
-.MessageForm .button-container {
-  flex: 0 0 6em;
-  margin: 1px 1px 1px 0;
+.chat-message textarea {
+  width: 40vw;
+  border: none;
+  padding: 10px 20px;
+  font: 14px/22px "Lato", Arial, sans-serif;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  resize: none;
 }
 
-.MessageForm input, .MessageForm button {
-  background: #fff;
-  border-radius: 3px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  font-size: inherit;
-  height: 100%;
-  outline: none;
-  width: 100%;
+.chat-message button {
+  float: right;
+  color: #94c2ed;
+  font-size: 16px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  background: #f2f5f8;
+  background: white;
+  border: 20px;
+  background-color: #f2f5f8;
+}
+.button:hover {
+  color: darken(#94c2ed, 7%);
 }
 
-.MessageForm input {
-  padding: 0 0 0 4px;
+.image-msg .image-call {
+  font-size: 16px;
+  color: gray;
+  cursor: pointer;
+}
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
 }
