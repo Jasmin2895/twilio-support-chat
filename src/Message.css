@@ -40,11 +40,13 @@ body {
   margin: 5px;
   position: relative;
 }
+
 .chat.u1 {
   float: left;
   clear: both;
   border-top-left-radius: 0px;
 }
+
 .chat.u1:before {
   content: "";
   width: 0px;
@@ -58,12 +60,14 @@ body {
   top: 0px;
   left: -10px;
 }
+
 .chat.u2 {
   float: right;
   clear: both;
   border-top-right-radius: 0px;
   background: #0f52a8;
 }
+
 .chat.u2:before {
   content: "";
   width: 0px;
@@ -115,6 +119,20 @@ body {
 }
 .new-chat button:active {
   color: #555;
+}
+.message-data-name {
+  font-size: 10px;
+  color: #222;
+  position: relative;
+  color: #92959e;
+  clear: both;
+}
+.placeLeft {
+  float: left;
+}
+
+.placeRight {
+  float: right;
 }
 /* .Message {
   line-height: 2em;

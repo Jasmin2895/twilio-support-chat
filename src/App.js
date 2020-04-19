@@ -103,7 +103,7 @@ class App extends Component {
       this.addMessage({ body: "Initiating a chat with a customer" });
       chatClient
         .createChannel({
-          uniqueName: "support_chat2",
+          uniqueName: "support_chat3",
           friendlyName: "Customer Chat Support",
         })
         .then(() => {
@@ -119,7 +119,7 @@ class App extends Component {
         .getSubscribedChannels()
         .then(() => {
           chatClient
-            .getChannelByUniqueName("support_chat2")
+            .getChannelByUniqueName("support_chat3")
             .then((channel) => {
               this.addMessage({
                 body: "Welcome to support chat...",

@@ -24,11 +24,19 @@ class Message extends Component {
       me: this.props.me,
       info: this.props.type,
     });
+    const msgClass = classNames("message-data-name", {
+      placeRight: this.props.me,
+      placeLeft: !this.props.me,
+    });
+    console.log("message", msgClass);
     return (
       <div className="Message">
         <div className="chats">
+          <div className={msgClass}>{this.props.author}</div>
           {this.props.me ? (
-            <span className="u2 chat">{this.props.body}</span>
+            <div>
+              <span className="u2 chat">{this.props.body}</span>
+            </div>
           ) : (
             <span className="u1 chat">{this.props.body}</span>
           )}
