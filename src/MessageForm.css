@@ -38,8 +38,8 @@
   font-weight: bold;
   background: #f2f5f8;
   background: white;
-  padding: 10px;
   border: 20px;
+  background-color: #f2f5f8;
 }
 .button:hover {
   color: darken(#94c2ed, 7%);
