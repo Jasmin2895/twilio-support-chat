@@ -1,29 +1,54 @@
 .MessageForm {
   display: flex;
-  background: #ccc;
+  border-radius: 10px;
+  width: 100%;
+  padding: 30px;
 }
 
 .MessageForm .input-container {
   flex: 1;
-  margin: 1px;
 }
 
 .MessageForm .button-container {
   flex: 0 0 6em;
   margin: 1px 1px 1px 0;
+  background: white;
 }
 
-.MessageForm input, .MessageForm button {
-  background: #fff;
-  border-radius: 3px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  font-size: inherit;
-  height: 100%;
-  outline: none;
+.MessageForm button {
+  float: right;
+  color: #94c2ed;
+  font-size: 16px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  background: #f2f5f8;
+}
+.MessageForm button:hover {
+  color: darken(#94c2ed, 7%);
+}
+
+.MessageForm textarea {
   width: 100%;
+  border: none;
+  padding: 10px 20px;
+  font: 14px/22px "Lato", Arial, sans-serif;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  resize: none;
 }
-
-.MessageForm input {
-  padding: 0 0 0 4px;
+.send-image {
+  width: 20px;
+  height: 30px;
+  display: flex;
+  margin: auto;
+}
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
 }
