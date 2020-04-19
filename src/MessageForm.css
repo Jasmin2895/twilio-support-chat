@@ -1,21 +1,34 @@
-.MessageForm {
+.send-image {
+  width: 20px;
+  height: 30px;
   display: flex;
-  border-radius: 10px;
-  width: 100%;
+  margin: auto;
+}
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+.chat-message {
   padding: 30px;
+  background: #f2f5f8;
 }
 
-.MessageForm .input-container {
-  flex: 1;
+.chat-message textarea {
+  width: 100vmin;
+  border: none;
+  padding: 10px 20px;
+  font: 14px/22px "Lato", Arial, sans-serif;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  resize: none;
 }
 
-.MessageForm .button-container {
-  flex: 0 0 6em;
-  margin: 1px 1px 1px 0;
-  background: white;
-}
-
-.MessageForm button {
+.chat-message button {
   float: right;
   color: #94c2ed;
   font-size: 16px;
@@ -24,26 +37,20 @@
   cursor: pointer;
   font-weight: bold;
   background: #f2f5f8;
+  background: white;
+  padding: 10px;
+  border: 20px;
 }
-.MessageForm button:hover {
+.button:hover {
   color: darken(#94c2ed, 7%);
 }
 
-.MessageForm textarea {
-  width: 100%;
-  border: none;
-  padding: 10px 20px;
-  font: 14px/22px "Lato", Arial, sans-serif;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  resize: none;
+.image-msg .image-call {
+  font-size: 16px;
+  color: gray;
+  cursor: pointer;
 }
-.send-image {
-  width: 20px;
-  height: 30px;
-  display: flex;
-  margin: auto;
-}
+
 .clearfix:after {
   visibility: hidden;
   display: block;

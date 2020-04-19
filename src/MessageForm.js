@@ -20,20 +20,16 @@ class MessageForm extends Component {
 
   render() {
     return (
-      <form className="MessageForm clearfix" onSubmit={this.handleFormSubmit}>
-        <div className="input-container">
-          <textarea
-            type="text"
-            ref={(node) => (this.input = node)}
-            placeholder="Type your message..."
-            rows="3"
-          />
-        </div>
-        <div className="button-container">
-          <button type="submit">
-            <img className="send-image" src={SendBtn} />
-          </button>
-        </div>
+      <form className="chat-message clearfix" onSubmit={this.handleFormSubmit}>
+        <textarea
+          type="text"
+          ref={(node) => (this.input = node)}
+          placeholder="Type your message..."
+          rows="3"
+        />
+        <button type="submit">
+          <img className="send-image" src={SendBtn}></img>
+        </button>
       </form>
     );
   }
