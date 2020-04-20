@@ -24,8 +24,9 @@
 
 .chat-with {
   font-weight: bold;
-  font-size: 16px;
+  font-size: 20px;
   flex: 1;
+  color: red;
 }
 
 .clearfix:after {
