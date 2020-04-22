@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import MessageForm from "./MessageForm";
 import MessageList from "./MessageList";
 import MessageHeader from "./MessageHeader";
+import PhoneCall from "./PhoneCall";
 import $ from "jquery";
 import "./App.css";
 const Chat = require("twilio-chat");
@@ -157,8 +158,9 @@ class App extends Component {
     return (
       <div className="App">
         <MessageHeader />
-        <MessageList messages={this.state.messages} />
-        <MessageForm onMessageSend={this.handleNewMessage} />
+        <PhoneCall />
+        {/* <MessageList messages={this.state.messages} /> */}
+        {/* <MessageForm onMessageSend={this.handleNewMessage} /> */}
       </div>
     );
   }
