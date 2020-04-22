@@ -3,11 +3,14 @@
   background-color: #f2f2f2;
   padding: 20px;
   width: 20vw;
-  text-align: center;
+  margin: 0px 10px;
+}
+label {
+  font-weight: bold;
 }
 
 input[type="submit"]:hover {
-  background-color: #1a5686;
+  background-color: #1783db;
 }
 
 input[type="submit"] {
@@ -30,4 +33,18 @@ textarea {
   margin-top: 6px;
   margin-bottom: 16px;
   resize: vertical;
+}
+
+.phone_call_submit {
+  float: right;
+}
+
+.cancel_btn {
+  background-color: #1a5686;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
 }
