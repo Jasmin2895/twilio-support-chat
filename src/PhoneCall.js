@@ -32,9 +32,7 @@ class PhoneCall extends Component {
     return (
       <div className="container">
         <form>
-          <label>
-            Enter your Phone Number in which you want to schedule a call
-          </label>
+          <label>Enter your Phone Number to schedule a call</label>
           <input
             type="tel"
             id="phone_no"

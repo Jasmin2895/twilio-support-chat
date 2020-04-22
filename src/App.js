@@ -17,15 +17,15 @@ class App extends Component {
     };
   }
 
-  componentDidMount = () => {
-    this.getToken()
-      .then(this.createChatClient)
-      .then(this.joinPersonalChannel)
-      .then(this.configureChannelEvents)
-      .catch((error) => {
-        this.addMessage({ body: `Error: ${error.message}` });
-      });
-  };
+  // componentDidMount = () => {
+  //   this.getToken()
+  //     .then(this.createChatClient)
+  //     .then(this.joinPersonalChannel)
+  //     .then(this.configureChannelEvents)
+  //     .catch((error) => {
+  //       this.addMessage({ body: `Error: ${error.message}` });
+  //     });
+  // };
 
   createChatClient = (token) => {
     return new Promise((resolve, reject) => {
