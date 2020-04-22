@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Button } from "semantic-ui-react";
 import "./PhoneCall.css";
 
 class PhoneCall extends Component {
@@ -41,8 +42,10 @@ class PhoneCall extends Component {
             placeholder="Phone Number..."
           ></input>
           <div className="phone_call_submit">
-            <input type="submit" value="Submit"></input>
-            <button className="cancel_btn">Cancel</button>
+            <button className="ui primary button" type="submit">
+              Submit
+            </button>
+            <button className="ui secondary button">Cancel</button>
           </div>
         </form>
       </div>
