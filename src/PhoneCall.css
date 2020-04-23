@@ -4,6 +4,9 @@
   padding: 20px;
   width: 50vw;
   margin: 0px 10px;
+  position: relative;
+  top: 10px;
+  clear: both;
 }
 
 .country_code {

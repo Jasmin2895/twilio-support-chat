@@ -35,6 +35,7 @@ app.get("/token", (req, res) => {
     })
   );
   const tokenCall = capability.toJwt();
+  console.log("tokenCall", tokenCall);
 
   token.identity = chance.name();
   token.addGrant(

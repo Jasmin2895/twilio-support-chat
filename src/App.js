@@ -95,6 +95,7 @@ class App extends Component {
       });
 
       $.getJSON("/token", (token) => {
+        console.log("token", token);
         this.setState({ username: token.identity });
         resolve(token);
       }).fail(() => {
@@ -118,7 +119,7 @@ class App extends Component {
       this.addMessage({ body: "Initiating a chat with a customer" });
       chatClient
         .createChannel({
-          uniqueName: "support_chat3",
+          uniqueName: "support_chat4",
           friendlyName: "Customer Chat Support",
         })
         .then(() => {
@@ -134,7 +135,7 @@ class App extends Component {
         .getSubscribedChannels()
         .then(() => {
           chatClient
-            .getChannelByUniqueName("support_chat3")
+            .getChannelByUniqueName("support_chat4")
             .then((channel) => {
               this.addMessage({
                 body: "Welcome to support chat...",
