@@ -2,7 +2,17 @@
   border-radius: 5px;
   background-color: #f2f2f2;
   padding: 20px;
+  width: 50vw;
   margin: 0px 10px;
+}
+
+.country_code {
+  margin-top: 6px;
+  margin-bottom: 16px;
+}
+
+.ui {
+  height: 100%;
 }
 label {
   font-weight: bold;
@@ -29,7 +39,7 @@ input[type="submit"] {
 input[type="tel"],
 select,
 textarea {
-  width: 100%;
+  flex: 1;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 4px;

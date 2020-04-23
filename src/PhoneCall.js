@@ -44,13 +44,18 @@ class PhoneCall extends Component {
         <form>
           <label>Enter your Phone Number to schedule a call</label>
           <div className="input_fields">
-            <Dropdown
-              placeholder="Select Country"
-              button
-              floating
-              className="button icon"
-              options={this.state.countries}
-            />
+            <div className="country_code">
+              <Dropdown
+                button
+                className="icon"
+                floating
+                labeled
+                icon="world"
+                options={this.state.countries}
+                search
+                placeholder="Select Country"
+              />
+            </div>
             <input
               type="tel"
               id="phone_no"
