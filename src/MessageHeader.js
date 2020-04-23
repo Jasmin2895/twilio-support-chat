@@ -10,7 +10,6 @@ class MessageHeader extends Component {
   }
 
   handleClickEvent = (eventType) => {
-    console.log("eventType", eventType);
     this.props.onClickIcons(eventType);
   };
 

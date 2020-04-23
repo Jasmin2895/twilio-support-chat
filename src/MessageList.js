@@ -7,10 +7,16 @@ import "./MessageList.css";
 class MessageList extends Component {
   static propTypes = {
     messages: PropTypes.arrayOf(PropTypes.object),
+    msg: PropTypes.string,
+    show: PropTypes.bool,
   };
 
   static defaultProps = {
     messages: [],
+  };
+
+  handleMsgDialog = () => {
+    this.props.closeDialog();
   };
 
   componentDidUpdate = () => {
@@ -18,12 +24,15 @@ class MessageList extends Component {
   };
 
   render() {
+    console.log("messageList Props", this.props);
     return (
       <div className="MessageList" ref={(node) => (this.node = node)}>
-        <PhoneCall />
         {this.props.messages.map((message, i) => (
           <Message key={i} {...message} />
         ))}
+        {this.props.show && (
+          <PhoneCall msg={this.props.msg} closeDialog={this.handleMsgDialog} />
+        )}
       </div>
     );
   }

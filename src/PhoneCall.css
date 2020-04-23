@@ -63,3 +63,8 @@ textarea {
   cursor: pointer;
   margin-left: 10px;
 }
+
+.form_buttons {
+  display: flex;
+  justify-content: flex-end;
+}

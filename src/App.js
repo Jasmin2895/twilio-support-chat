@@ -37,13 +37,14 @@ class App extends Component {
     this.setState({ showDialog: true, msg: dialogMsg });
   };
 
-  handleMsgDialog = () => {
-    this.setState({ showDialog: false });
-  };
   createChatClient = (token) => {
     return new Promise((resolve, reject) => {
       resolve(new Chat.Client.create(token.jwt));
     });
+  };
+
+  handleMsgDialog = () => {
+    this.setState({ showDialog: false });
   };
 
   handleNewMessage = (text) => {
@@ -171,11 +172,13 @@ class App extends Component {
     return (
       <div className="App">
         <MessageHeader onClickIcons={this.handleSelectIcon} />
-        {this.state.showDialog && (
-          <PhoneCall msg={this.state.msg} closeDialog={this.handleMsgDialog} />
-        )}
-        {/* <MessageList messages={this.state.messages} /> */}
-        {/* <MessageForm onMessageSend={this.handleNewMessage} /> */}
+        <MessageList
+          show={this.state.showDialog}
+          msg={this.state.msg}
+          messages={this.state.messages}
+          closeDialog={this.handleMsgDialog}
+        />
+        <MessageForm onMessageSend={this.handleNewMessage} />
       </div>
     );
   }

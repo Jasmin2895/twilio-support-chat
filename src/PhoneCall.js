@@ -54,8 +54,8 @@ class PhoneCall extends Component {
   };
   render() {
     return (
-      <div className="container">
-        <form>
+      <form>
+        <div className="container">
           <label>{this.props.msg}</label>
           <div className="input_fields">
             <div className="country_code">
@@ -77,16 +77,14 @@ class PhoneCall extends Component {
               placeholder="Phone Number..."
             ></input>
           </div>
-          <div className="phone_call_submit">
-            <button className="ui primary button" type="submit">
-              Submit
-            </button>
+          <div className="form_buttons">
+            <button className="ui primary button">Submit</button>
             <button className="ui secondary button" onClick={this.handleDialog}>
               Cancel
             </button>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     );
   }
 }
