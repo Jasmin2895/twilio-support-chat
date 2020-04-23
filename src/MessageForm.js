@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import "./MessageForm.css";
-import SendBtn from "./assets/send.svg";
 
 class MessageForm extends Component {
   static propTypes = {
@@ -26,10 +25,14 @@ class MessageForm extends Component {
           ref={(node) => (this.input = node)}
           placeholder="Type your message..."
           rows="3"
+          className="msg_box"
         />
-        <button type="submit">
-          <img className="send-image" src={SendBtn}></img>
-        </button>
+        <div className="sendButton">
+          <button className="ui primary button" type="submit">
+            <i className="paper plane icon"></i>
+            Send
+          </button>
+        </div>
       </form>
     );
   }

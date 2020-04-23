@@ -1,0 +1,73 @@
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  width: 50vw;
+  margin: 0px 10px;
+  position: relative;
+  top: 10px;
+  clear: both;
+}
+
+.country_code {
+  margin-top: 6px;
+  margin-bottom: 16px;
+}
+
+.ui {
+  height: 100%;
+}
+label {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+input[type="submit"]:hover {
+  background-color: #1783db;
+}
+
+input[type="submit"] {
+  background-color: #1a5686;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.input_fields {
+  display: flex;
+  margin: 5px;
+}
+
+input[type="tel"],
+select,
+textarea {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+.phone_call_submit {
+  float: right;
+}
+
+.cancel_btn {
+  background-color: #1a5686;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.form_buttons {
+  display: flex;
+  justify-content: flex-end;
+}

@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import "./MessageHeader.css";
-import SmsImage from "./assets/sms.svg";
-import PhoneImage from "./assets/phone.svg";
 
 class MessageHeader extends Component {
   constructor(props) {
     super(props);
   }
+
+  handleClickEvent = (eventType) => {
+    this.props.onClickIcons(eventType);
+  };
 
   render() {
     return (
@@ -14,8 +16,14 @@ class MessageHeader extends Component {
         <div className="chat-about">
           <div className="chat-with">Support Chat By Twilio</div>
           <div className="help-icons">
-            <img src={SmsImage} className="icon-image"></img>
-            <img src={PhoneImage} className="icon-image"></img>
+            <i
+              className="icon-image comment outline icon"
+              onClick={() => this.handleClickEvent("msg")}
+            ></i>
+            <i
+              className="icon-image phone icon"
+              onClick={() => this.handleClickEvent("call")}
+            ></i>
           </div>
         </div>
       </div>
