@@ -16,7 +16,7 @@ class PhoneCall extends Component {
         {
           text: "United States",
           key: "1",
-          countryCode: "us",
+          icon: "us flag",
           value: "1",
         },
         { value: "44", text: "Great Britain", key: "44", icon: "gb flag" },
