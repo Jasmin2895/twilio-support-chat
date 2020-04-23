@@ -1,15 +1,26 @@
 import React, { Component } from "react";
 import { Button } from "semantic-ui-react";
+import PropTypes from "prop-types";
 import { Dropdown } from "semantic-ui-react";
 import { Flag, Segment } from "semantic-ui-react";
 import "./PhoneCall.css";
 class PhoneCall extends Component {
+  static propTypes = {
+    msg: PropTypes.string,
+  };
+
+  static defaultProps = {
+    msg: "",
+  };
+
   constructor(props) {
     super(props);
     this.state = {
       countryCode: "1",
       currentNumber: "",
       log: "Connecting...",
+      callDetails: "",
+      msgDetails: "",
       muted: false,
       onPhone: false,
       countries: [
@@ -35,6 +46,9 @@ class PhoneCall extends Component {
     };
   }
 
+  handleDialog = () => {
+    this.props.closeDialog();
+  };
   handleChange = (event, data) => {
     console.log("event data", event, data);
   };
@@ -42,7 +56,7 @@ class PhoneCall extends Component {
     return (
       <div className="container">
         <form>
-          <label>Enter your Phone Number to schedule a call</label>
+          <label>{this.props.msg}</label>
           <div className="input_fields">
             <div className="country_code">
               <Dropdown
@@ -67,7 +81,9 @@ class PhoneCall extends Component {
             <button className="ui primary button" type="submit">
               Submit
             </button>
-            <button className="ui secondary button">Cancel</button>
+            <button className="ui secondary button" onClick={this.handleDialog}>
+              Cancel
+            </button>
           </div>
         </form>
       </div>

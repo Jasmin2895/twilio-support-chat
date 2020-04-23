@@ -14,6 +14,8 @@ class App extends Component {
       messages: [],
       username: null,
       channel: null,
+      showDialog: false,
+      msg: "",
     };
   }
 
@@ -27,6 +29,17 @@ class App extends Component {
   //     });
   // };
 
+  handleSelectIcon = (eventType) => {
+    let dialogMsg = "";
+    if (eventType.toLowerCase() === "call")
+      dialogMsg = "Enter your Phone Number to schedule a Call!";
+    else dialogMsg = "Enter your Phone Number to get Message Updates!";
+    this.setState({ showDialog: true, msg: dialogMsg });
+  };
+
+  handleMsgDialog = () => {
+    this.setState({ showDialog: false });
+  };
   createChatClient = (token) => {
     return new Promise((resolve, reject) => {
       resolve(new Chat.Client.create(token.jwt));
@@ -157,8 +170,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <MessageHeader />
-        <PhoneCall />
+        <MessageHeader onClickIcons={this.handleSelectIcon} />
+        {this.state.showDialog && (
+          <PhoneCall msg={this.state.msg} closeDialog={this.handleMsgDialog} />
+        )}
         {/* <MessageList messages={this.state.messages} /> */}
         {/* <MessageForm onMessageSend={this.handleNewMessage} /> */}
       </div>
