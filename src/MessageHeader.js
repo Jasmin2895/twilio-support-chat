@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 import "./MessageHeader.css";
-import SmsImage from "./assets/sms.svg";
-import PhoneImage from "./assets/phone.svg";
-import { EnvironmentList } from "twilio/lib/rest/serverless/v1/service/environment";
 
 class MessageHeader extends Component {
   constructor(props) {
@@ -19,16 +16,14 @@ class MessageHeader extends Component {
         <div className="chat-about">
           <div className="chat-with">Support Chat By Twilio</div>
           <div className="help-icons">
-            <img
-              src={SmsImage}
-              className="icon-image"
+            <i
+              className="icon-image comment outline icon"
               onClick={() => this.handleClickEvent("msg")}
-            ></img>
-            <img
-              src={PhoneImage}
-              className="icon-image"
+            ></i>
+            <i
+              className="icon-image phone icon"
               onClick={() => this.handleClickEvent("call")}
-            ></img>
+            ></i>
           </div>
         </div>
       </div>
