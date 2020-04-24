@@ -3,7 +3,9 @@ import { Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import { Dropdown } from "semantic-ui-react";
 import { Flag, Segment } from "semantic-ui-react";
+import $ from "jquery";
 import "./PhoneCall.css";
+const Twilio = require("twilio-client");
 class PhoneCall extends Component {
   static propTypes = {
     msg: PropTypes.string,
@@ -23,6 +25,7 @@ class PhoneCall extends Component {
       msgDetails: "",
       muted: false,
       onPhone: false,
+      phoneNo: "",
       countries: [
         {
           text: "United States",
@@ -46,45 +49,103 @@ class PhoneCall extends Component {
     };
   }
 
+  componentDidMount() {
+    this.getToken();
+  }
+
   handleDialog = () => {
     this.props.closeDialog();
   };
+
   handleChange = (event, data) => {
     console.log("event data", event, data);
   };
+
+  handleValueChange(event) {
+    console.log("handleValueChange", event.target.value);
+    this.setState({
+      phoneNo: event.target.value,
+    });
+
+    console.log("state", this.state.phoneNo);
+  }
+
+  handleCallUser() {
+    console.log("handleCallUser", this.state.phoneNo);
+  }
+
+  // getToken method
+  async getToken() {
+    let data = await $.getJSON("/token");
+    console.log("token phone call", data);
+    // Setup Twilio.Device
+    let device = new Twilio.Device(data.tokenCall, {
+      codecPreferences: ["opus", "pcmu"],
+      fakeLocalDTMF: true,
+      enableRingingState: true,
+    });
+    // this.devicFunctions(device);
+  }
+
+  devicFunctions(device) {
+    //dial the number
+
+    console.log(device);
+    device.on("ready", (device) => {
+      console.log("Twilio device ready!", device);
+    });
+
+    device.on("error", (error) => {
+      console.log("Twilio device error!", error.message);
+    });
+
+    device.on("connect", (conn) => {
+      console.log("Call Successfully estabilished!");
+    });
+
+    device.on("disconnect", (conn) => {
+      console.log("Call ended.");
+    });
+
+    device.on("incoming", (conn) => {
+      console.log("Incoming connection from", conn.parameters.From);
+    });
+  }
   render() {
     return (
-      <form>
-        <div className="container">
-          <label>{this.props.msg}</label>
-          <div className="input_fields">
-            <div className="country_code">
-              <Dropdown
-                button
-                className="icon"
-                floating
-                labeled
-                icon="world"
-                options={this.state.countries}
-                search
-                placeholder="Select Country"
-              />
-            </div>
-            <input
-              type="tel"
-              id="phone_no"
-              name="firstname"
-              placeholder="Phone Number..."
-            ></input>
+      <div className="container">
+        <label>{this.props.msg}</label>
+        <div className="input_fields">
+          <div className="country_code">
+            <Dropdown
+              button
+              className="icon"
+              floating
+              labeled
+              icon="world"
+              options={this.state.countries}
+              search
+              placeholder="Select Country"
+            />
           </div>
-          <div className="form_buttons">
-            <button className="ui primary button">Submit</button>
-            <button className="ui secondary button" onClick={this.handleDialog}>
-              Cancel
-            </button>
-          </div>
+          <input
+            type="tel"
+            id="phone_no"
+            name="firstname"
+            placeholder="Phone Number..."
+            value={this.state.phoneNo}
+            onChange={(event) => this.handleValueChange(event)}
+          ></input>
         </div>
-      </form>
+        <div className="form_buttons">
+          <button className="ui primary button" onClick={this.handleCallUser}>
+            Call
+          </button>
+          <button className="ui secondary button" onClick={this.handleDialog}>
+            Cancel
+          </button>
+        </div>
+      </div>
     );
   }
 }
