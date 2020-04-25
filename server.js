@@ -34,18 +34,6 @@ app.get("/token", (req, res) => {
       applicationSid: process.env.TWILIO_TWIML_APP_SID,
     })
   );
-  // const client = require("twilio")(
-  //   process.env.TWILIO_ACCOUNT_SID,
-  //   process.env.TWILIO_AUTH_TOKEN
-  // );
-  // client.calls
-  //   .create({
-  //     twiml:
-  //       "<Response><Say>What's up Supreet, I've got your number from your friend. How are you doing! You've got talented and beautiful sisters. Your are soooooo lucky to have them! You are sooo handsome. How is your Love Life going on? Are ypou seeing someone special?</Say></Response>",
-  //     to: "+353899419815",
-  //     from: process.env.TWILIO_NUMBER,
-  //   })
-  //   .then((call) => console.log(call));
 
   const tokenCall = capability.toJwt();
   console.log("tokenCall", tokenCall);
@@ -82,24 +70,36 @@ app.post("/call", (request, response) => {
   const accountSid = process.env.TWILIO_ACCOUNT_SID;
   const authToken = process.env.TWILIO_AUTH_TOKEN;
 
+  const voiceResponse = new VoiceResponse();
+  voiceResponse.say(
+    {
+      voice: "alice",
+      language: "fr-FR",
+    },
+    "Chapeau!"
+  );
+  console.log(voiceResponse.toString());
   const client = Twilio(accountSid, authToken);
   client.calls
     .create({
       method: "GET",
       sendDigits: "1234#",
       record: true,
-      twiml: "<Response><Say>Hi my Name is Jasmin!</Say></Response>",
+      twiml:
+        "<Response><Gather input='speech' enhanced='true' timeout='60' speechModel='phone_call' method='/completed'><Say>Please tell us how we can help you today. This call will be recorded for better service!</Say></Gather></Response>",
       to: request.body.number,
       from: process.env.TWILIO_NUMBER,
     })
     .then((call) => {
-      client
-        .calls(call.sid)
-        .update({ twiml: "<Response><Say>Ahoy there</Say></Response>" })
-        .then((call) => console.log(call.to));
+      console.log("call", call);
     });
 
-  // client.calls.update({});
+  response.type("text/xml");
+  response.send(voiceResponse.toString());
+});
+
+app.get("/completed", (request, response) => {
+  console.log("completed call", request, response);
 });
 
 app.listen(3001, () => {
