@@ -57,59 +57,73 @@ class PhoneCall extends Component {
     this.props.closeDialog();
   };
 
-  handleChange = (event, data) => {
-    console.log("event data", event, data);
-  };
+  async handleChange(event, data) {
+    console.log("event data", event, data.value);
+    await this.setState({
+      countryCode: data.value,
+    });
+    console.log("country code", this.state.countryCode);
+  }
 
-  handleValueChange(event) {
+  async handleValueChange(event) {
     console.log("handleValueChange", event.target.value);
-    this.setState({
+    await this.setState({
       phoneNo: event.target.value,
     });
 
     console.log("state", this.state.phoneNo);
   }
 
-  handleCallUser() {
+  handleCallUser = () => {
     console.log("handleCallUser", this.state.phoneNo);
-  }
+    this.devicFunctions();
+  };
 
   // getToken method
   async getToken() {
     let data = await $.getJSON("/token");
     console.log("token phone call", data);
     // Setup Twilio.Device
-    let device = new Twilio.Device(data.tokenCall, {
-      codecPreferences: ["opus", "pcmu"],
-      fakeLocalDTMF: true,
-      enableRingingState: true,
+    Twilio.Device.setup(data.tokenCall);
+
+    //device Events
+    Twilio.Device.ready(() => {
+      console.log("Connected!");
     });
-    // this.devicFunctions(device);
+
+    let payload = {
+      to: "+918890378033",
+      from: process.env.TWILIO_NUMBER,
+    };
+    Twilio.Device.connect(payload);
+    // console.log("Twilio device", Twilio.Device.connect());
+    Twilio.Device.disconnect(() => {
+      console.log("Call ended!");
+    });
   }
 
-  devicFunctions(device) {
+  devicFunctions() {
     //dial the number
-
-    console.log(device);
-    device.on("ready", (device) => {
-      console.log("Twilio device ready!", device);
-    });
-
-    device.on("error", (error) => {
-      console.log("Twilio device error!", error.message);
-    });
-
-    device.on("connect", (conn) => {
-      console.log("Call Successfully estabilished!");
-    });
-
-    device.on("disconnect", (conn) => {
-      console.log("Call ended.");
-    });
-
-    device.on("incoming", (conn) => {
-      console.log("Incoming connection from", conn.parameters.From);
-    });
+    // let dialNumber = `+${this.state.countryCode}${this.state.phoneNo}`;
+    // console.log("dialNo", dialNumber);
+    // console.log("Calling " + dialNumber + "...");
+    // Twilio.Device.connect({ To: dialNumber });
+    // dial the number
+    // device.on("ready", (device) => {
+    //   console.log("Twilio device ready!", device);
+    // });
+    // device.on("error", (error) => {
+    //   console.log("Twilio device error!", error.code, error.message);
+    // });
+    // device.on("connect", (conn) => {
+    //   console.log("Call Successfully estabilished!");
+    // });
+    // device.on("disconnect", (conn) => {
+    //   console.log("Call ended.");
+    // });
+    // device.on("incoming", (conn) => {
+    //   console.log("Incoming connection from", conn.parameters.From);
+    // });
   }
   render() {
     return (
@@ -126,6 +140,7 @@ class PhoneCall extends Component {
               options={this.state.countries}
               search
               placeholder="Select Country"
+              onChange={(event, data) => this.handleChange(event, data)}
             />
           </div>
           <input

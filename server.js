@@ -34,6 +34,19 @@ app.get("/token", (req, res) => {
       applicationSid: process.env.TWILIO_TWIML_APP_SID,
     })
   );
+  // const client = require("twilio")(
+  //   process.env.TWILIO_ACCOUNT_SID,
+  //   process.env.TWILIO_AUTH_TOKEN
+  // );
+  // client.calls
+  //   .create({
+  //     twiml:
+  //       "<Response><Say>Your Call is recorded for internal purpose usage!</Say></Response>",
+  //     to: "+918890378033",
+  //     from: process.env.TWILIO_NUMBER,
+  //   })
+  //   .then((call) => console.log(call));
+
   const tokenCall = capability.toJwt();
   console.log("tokenCall", tokenCall);
 
