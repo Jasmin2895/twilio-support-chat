@@ -50,7 +50,7 @@ class PhoneCall extends Component {
   }
 
   componentDidMount() {
-    this.getToken();
+    // this.getToken();
   }
 
   handleDialog = () => {
@@ -91,20 +91,23 @@ class PhoneCall extends Component {
       console.log("Connected!");
     });
 
-    let payload = {
-      to: "+918890378033",
-      from: process.env.TWILIO_NUMBER,
-    };
-    Twilio.Device.connect(payload);
+    // let payload = {
+    //   to: "+918890378033",
+    //   from: process.env.TWILIO_NUMBER,
+    // };
+    // Twilio.Device.connect(payload);
     // console.log("Twilio device", Twilio.Device.connect());
     Twilio.Device.disconnect(() => {
       console.log("Call ended!");
     });
   }
 
-  devicFunctions() {
+  async devicFunctions() {
+    let dialNumber = `+${this.state.countryCode}${this.state.phoneNo}`;
+    let call = await $.post("/call", { number: dialNumber });
+    console.log("call details", call);
     //dial the number
-    // let dialNumber = `+${this.state.countryCode}${this.state.phoneNo}`;
+
     // console.log("dialNo", dialNumber);
     // console.log("Calling " + dialNumber + "...");
     // Twilio.Device.connect({ To: dialNumber });

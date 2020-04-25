@@ -41,8 +41,8 @@ app.get("/token", (req, res) => {
   // client.calls
   //   .create({
   //     twiml:
-  //       "<Response><Say>Your Call is recorded for internal purpose usage!</Say></Response>",
-  //     to: "+918890378033",
+  //       "<Response><Say>What's up Supreet, I've got your number from your friend. How are you doing! You've got talented and beautiful sisters. Your are soooooo lucky to have them! You are sooo handsome. How is your Love Life going on? Are ypou seeing someone special?</Say></Response>",
+  //     to: "+353899419815",
   //     from: process.env.TWILIO_NUMBER,
   //   })
   //   .then((call) => console.log(call));
@@ -65,17 +65,41 @@ app.get("/token", (req, res) => {
 });
 
 app.post("/voice", (request, response) => {
+  console.log("request", request.body.number);
   //TODO: Create TwiML response
   const voiceResponse = new VoiceResponse();
-  voiceResponse.dial(
-    {
-      callerId: process.env.TWILIO_NUMBER,
-    },
-    request.body.number
-  );
+  const dial = voiceResponse.dial({
+    callerId: process.env.TWILIO_NUMBER,
+  });
+  dial.number(request.body.number);
 
+  console.log("response", voiceResponse);
   response.type("text/xml");
   response.send(voiceResponse.toString());
+});
+
+app.post("/call", (request, response) => {
+  const accountSid = process.env.TWILIO_ACCOUNT_SID;
+  const authToken = process.env.TWILIO_AUTH_TOKEN;
+
+  const client = Twilio(accountSid, authToken);
+  client.calls
+    .create({
+      method: "GET",
+      sendDigits: "1234#",
+      record: true,
+      twiml: "<Response><Say>Hi my Name is Jasmin!</Say></Response>",
+      to: request.body.number,
+      from: process.env.TWILIO_NUMBER,
+    })
+    .then((call) => {
+      client
+        .calls(call.sid)
+        .update({ twiml: "<Response><Say>Ahoy there</Say></Response>" })
+        .then((call) => console.log(call.to));
+    });
+
+  // client.calls.update({});
 });
 
 app.listen(3001, () => {
