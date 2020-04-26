@@ -50,13 +50,17 @@ class PhoneCall extends Component {
   }
 
   componentDidMount() {
-    // this.getToken();
+    this.getMsgUpdates();
   }
 
   handleDialog = () => {
     this.props.closeDialog();
   };
 
+  getMsgUpdates = () => {
+    const data = $.post("/whatsapp", { number: "+918890378033" });
+    console.log("data", data);
+  };
   async handleChange(event, data) {
     console.log("event data", event, data.value);
     await this.setState({
