@@ -101,18 +101,27 @@ app.get("/completed", (request, response) => {
   console.log("completed call", request, response);
 });
 
-app.post("/whatsapp", (request, response) => {
-  const accountSid = process.env.TWILIO_ACCOUNT_SID;
-  const authToken = process.env.TWILIO_AUTH_TOKEN;
-  const client = Twilio(accountSid, authToken);
-  client.messages
-    .create({
-      to: "+918003889186",
-      body: "Thanks for opting SMS service, you will be infromed about",
-      from: "+19798595165",
-    })
-    .then((message) => console.log(message.sid));
+const url =
+  "https://channels.autopilot.twilio.com/v1/AC715991e92ab98996211cddd42d1d4775/UAb637fc205564c8b7727ceffc3debd157/twilio-messaging";
+app.post(url, (req, res) => {
+  console.log("req, res", req, res);
 });
+
+app.post(
+  "/whahttps://channels.autopilot.twilio.com/v1/AC715991e92ab98996211cddd42d1d4775/UAb637fc205564c8b7727ceffc3debd157/twilio-messagingtsapp",
+  (request, response) => {
+    const accountSid = process.env.TWILIO_ACCOUNT_SID;
+    const authToken = process.env.TWILIO_AUTH_TOKEN;
+    const client = Twilio(accountSid, authToken);
+    client.messages
+      .create({
+        to: "+918890378033",
+        body: "Thanks for opting SMS service, you will be infromed about",
+        from: "+19798595165",
+      })
+      .then((message) => console.log(message.sid));
+  }
+);
 
 app.post("/sms", (req, res) => {
   const MessagingResponse = Twilio.twiml.MessagingResponse;
