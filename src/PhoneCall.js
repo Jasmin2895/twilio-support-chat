@@ -57,10 +57,11 @@ class PhoneCall extends Component {
     this.props.closeDialog();
   };
 
-  getMsgUpdates = () => {
-    const data = $.post("/whatsapp", { number: "+918890378033" });
+  async getMsgUpdates() {
+    const data = await $.post("/messages/create", { number: "+918890378033" });
+    await $.post("/whatsapp", { number: "+918890378033" });
     console.log("data", data);
-  };
+  }
   async handleChange(event, data) {
     console.log("event data", event, data.value);
     await this.setState({

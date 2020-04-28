@@ -2,16 +2,50 @@ require("dotenv").config();
 
 // Node/Express
 const http = require("http");
+const mongoose = require("mongoose");
 const Twilio = require("twilio");
 const Chance = require("chance");
 const express = require("express");
 const { urlencoded } = require("body-parser");
 const ClientCapability = Twilio.jwt.ClientCapability;
 const VoiceResponse = Twilio.twiml.VoiceResponse;
+const { MongoClient } = require("mongodb");
+const mongo = require("mongodb");
+const message = require("./routes/message");
+
+const mongi_uri = `mongodb+srv://jasmin:qwerty@123@firstcluster-piupa.mongodb.net/test?retryWrites=true&w=majority`;
+
+const client = new MongoClient(mongi_uri);
+
+async function main() {
+  try {
+    // Connect to the MongoDB cluster
+    await client.connect();
+
+    // Make the appropriate DB calls
+    await listDatabases(client);
+  } catch (e) {
+    console.error(e);
+  } finally {
+    await client.close();
+  }
+}
+async function listDatabases(client) {
+  databasesList = await client.db().admin().listDatabases();
+
+  // console.log("databasesList", databasesList);
+  console.log("Databases:");
+  const db = client.db("twilio");
+  // databasesList.databases.forEach((db) => console.log(` - ${db.name}`));
+}
+main();
+
+// notification
 
 const app = express();
 app.use(express.static(__dirname + "/public"));
 app.use(urlencoded({ extended: false }));
+app.use("/messages", message);
 
 const AccessToken = Twilio.jwt.AccessToken;
 const ChatGrant = AccessToken.ChatGrant;
@@ -36,7 +70,6 @@ app.get("/token", (req, res) => {
   );
 
   const tokenCall = capability.toJwt();
-  console.log("tokenCall", tokenCall);
 
   token.identity = chance.name();
   token.addGrant(
@@ -53,7 +86,6 @@ app.get("/token", (req, res) => {
 });
 
 app.post("/voice", (request, response) => {
-  console.log("request", request.body.number);
   //TODO: Create TwiML response
   const voiceResponse = new VoiceResponse();
   const dial = voiceResponse.dial({
@@ -61,7 +93,6 @@ app.post("/voice", (request, response) => {
   });
   dial.number(request.body.number);
 
-  console.log("response", voiceResponse);
   response.type("text/xml");
   response.send(voiceResponse.toString());
 });
@@ -70,14 +101,6 @@ app.post("/call", (request, response) => {
   const accountSid = process.env.TWILIO_ACCOUNT_SID;
   const authToken = process.env.TWILIO_AUTH_TOKEN;
 
-  voiceResponse.say(
-    {
-      voice: "alice",
-      language: "fr-FR",
-    },
-    "Chapeau!"
-  );
-  console.log(voiceResponse.toString());
   const client = Twilio(accountSid, authToken);
   client.calls
     .create({
@@ -101,27 +124,18 @@ app.get("/completed", (request, response) => {
   console.log("completed call", request, response);
 });
 
-const url =
-  "https://channels.autopilot.twilio.com/v1/AC715991e92ab98996211cddd42d1d4775/UAb637fc205564c8b7727ceffc3debd157/twilio-messaging";
-app.post(url, (req, res) => {
-  console.log("req, res", req, res);
+app.post("/whatsapp", (request, response) => {
+  const accountSid = process.env.TWILIO_ACCOUNT_SID;
+  const authToken = process.env.TWILIO_AUTH_TOKEN;
+  const client = Twilio(accountSid, authToken);
+  client.messages
+    .create({
+      to: "+919828350824",
+      body: "Thanks for opting SMS service, you will be infromed about",
+      from: "+19798595165",
+    })
+    .then((message) => res.send(message.sid));
 });
-
-app.post(
-  "/whahttps://channels.autopilot.twilio.com/v1/AC715991e92ab98996211cddd42d1d4775/UAb637fc205564c8b7727ceffc3debd157/twilio-messagingtsapp",
-  (request, response) => {
-    const accountSid = process.env.TWILIO_ACCOUNT_SID;
-    const authToken = process.env.TWILIO_AUTH_TOKEN;
-    const client = Twilio(accountSid, authToken);
-    client.messages
-      .create({
-        to: "+918890378033",
-        body: "Thanks for opting SMS service, you will be infromed about",
-        from: "+19798595165",
-      })
-      .then((message) => console.log(message.sid));
-  }
-);
 
 app.post("/sms", (req, res) => {
   const MessagingResponse = Twilio.twiml.MessagingResponse;
@@ -132,6 +146,6 @@ app.post("/sms", (req, res) => {
   res.end(twiml.toString());
 });
 
-app.listen(3001, () => {
-  console.log("Programmable Chat token server listening on port 3001!");
+app.listen(3002, () => {
+  console.log("Programmable Chat token server listening on port 3002!");
 });
