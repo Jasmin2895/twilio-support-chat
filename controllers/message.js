@@ -36,14 +36,14 @@ exports.createMessages = (req, res) => {
 exports.postMessages = (req, res) => {
   const body = req.body.msg;
   const phoneNumber = req.body.phoneNumber;
-  const phoneNumber = req.body.notification;
+  const notification = req.body.notification;
   const timeZone = req.body.timeZone;
   const time = moment(req.body.time, "MM-DD-YYYY hh:mma");
 
   const Messages = new messages({
     body,
     phoneNumber,
-    phoneNumber,
+    notification,
     timeZone,
     time,
   });
