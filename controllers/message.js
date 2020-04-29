@@ -67,14 +67,14 @@ exports.getOneMessage = (req, res) => {
 
 exports.editMessage = (req, res) => {
   const id = req.params.id;
-  const name = req.body.name;
+  const body = req.body.body;
   const phoneNumber = req.body.phoneNumber;
   const notification = req.body.notification;
   const timeZone = req.body.timeZone;
   const time = moment(req.body.time, "MM-DD-YYYY hh:mma");
 
   messages.findOne({ _id: id }).then((msg) => {
-    msg.name = name;
+    msg.body = body;
     msg.phoneNumber = phoneNumber;
     msg.notification = notification;
     msg.timeZone = timeZone;
