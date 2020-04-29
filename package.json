@@ -5,9 +5,17 @@
   "dependencies": {
     "chance": "^1.1.4",
     "classnames": "^2.2.5",
+    "cookie-parser": "^1.4.5",
+    "cron": "^1.8.2",
+    "debug": "^4.1.1",
     "dotenv": "^8.2.0",
+    "dotenv-safe": "^8.2.0",
     "express": "^4.17.1",
     "jquery": "^3.5.0",
+    "moment": "^2.11.2",
+    "moment-timezone": "^0.5.28",
+    "mongodb": "^3.5.6",
+    "mongoose": "^5.9.10",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
@@ -15,8 +23,10 @@
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-less": "^2.4.1",
     "semantic-ui-react": "^0.84.0",
+    "serve-favicon": "^2.5.0",
     "twilio": "^3.42.1",
-    "twilio-chat": "^3.3.4"
+    "twilio-chat": "^3.3.4",
+    "twilio-client": "^1.10.2"
   },
   "devDependencies": {
     "acorn": "^5.7.4",
@@ -26,7 +36,7 @@
     "mem": "^4.0.0",
     "prettier": "2.0.4"
   },
-  "proxy": "http://localhost:3001",
+  "proxy": "http://localhost:3002",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
