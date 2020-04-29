@@ -12,33 +12,47 @@ const VoiceResponse = Twilio.twiml.VoiceResponse;
 const { MongoClient } = require("mongodb");
 const mongo = require("mongodb");
 const message = require("./routes/message");
+const assert = require("assert");
+const db = require("./db");
 
-const mongi_uri = `mongodb+srv://jasmin:qwerty@123@firstcluster-piupa.mongodb.net/test?retryWrites=true&w=majority`;
+// const mongi_uri = `mongodb+srv://jasmin:qwerty@123@firstcluster-piupa.mongodb.net/test?retryWrites=true&w=majority`;
 
-const client = new MongoClient(mongi_uri);
+// const mongoDbUri = "mongodb://localhost:27017";
+// // const client = new MongoClient(mongi_uri);
+// const client = new MongoClient(mongoDbUri);
 
-async function main() {
-  try {
-    // Connect to the MongoDB cluster
-    await client.connect();
+// const dbName = "twilio";
 
-    // Make the appropriate DB calls
-    await listDatabases(client);
-  } catch (e) {
-    console.error(e);
-  } finally {
-    await client.close();
-  }
-}
-async function listDatabases(client) {
-  databasesList = await client.db().admin().listDatabases();
+// async function main() {
+//   try {
+//     // Connect to the MongoDB cluster
+//     // await client.connect();
+//     await client.connect((err) => {
+//       assert.equal(null, err);
+//       console.log("Connected successfully to server");
+//     });
+//     await client.db(dbName);
 
-  // console.log("databasesList", databasesList);
-  console.log("Databases:");
-  const db = client.db("twilio");
-  // databasesList.databases.forEach((db) => console.log(` - ${db.name}`));
-}
-main();
+//     // await client.close();
+//     // Make the appropriate DB calls
+//     // await listDatabases(client);
+//   } catch (e) {
+//     console.error(e);
+//   } finally {
+//     await client.close();
+//   }
+// }
+// // async function listDatabases(client) {
+// //   databasesList = await client.db().admin().listDatabases();
+
+// //   // console.log("databasesList", databasesList);
+// //   console.log("Databases:");
+// //   const db = client.db("twilio");
+// //   db.on("error", console.error.bind(console, "MongoDB connection error:"));
+// //   db.on("connected", console.log("Mongo db connected!!!"));
+// //   // databasesList.databases.forEach((db) => console.log(` - ${db.name}`));
+// // }
+// main();
 
 // notification
 

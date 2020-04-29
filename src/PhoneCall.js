@@ -58,9 +58,9 @@ class PhoneCall extends Component {
   };
 
   async getMsgUpdates() {
-    const data = await $.post("/messages/create", { number: "+918890378033" });
-    await $.post("/whatsapp", { number: "+918890378033" });
-    console.log("data", data);
+    // const data = await $.post("/messages/create", { number: "+918890378033" });
+    await $.get("/messages/get");
+    // await $.post("/whatsapp", { number: "+918890378033" });
   }
   async handleChange(event, data) {
     console.log("event data", event, data.value);
