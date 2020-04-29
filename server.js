@@ -14,6 +14,7 @@ const mongo = require("mongodb");
 const message = require("./routes/message");
 const assert = require("assert");
 const db = require("./db");
+const scheduler = require("./scheduler");
 
 // const mongi_uri = `mongodb+srv://jasmin:qwerty@123@firstcluster-piupa.mongodb.net/test?retryWrites=true&w=majority`;
 
@@ -160,6 +161,7 @@ app.post("/sms", (req, res) => {
   res.end(twiml.toString());
 });
 
+scheduler.start();
 app.listen(3002, () => {
   console.log("Programmable Chat token server listening on port 3002!");
 });
