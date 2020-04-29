@@ -27,3 +27,10 @@ exports.find = (req, res) => {
     res.send(message);
   });
 };
+
+exports.delete = (req, res, next) => {
+  const id = req.params.id;
+  messages.remove({ _id: id }).then(() => {
+    res.send({ result: "Message deleted successfully" });
+  });
+};
