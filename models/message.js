@@ -56,7 +56,7 @@ MessageSchema.statics.sendNotifications = (callback) => {
         to: `+ ${msg.phoneNumber}`,
         from: process.env.TWILIO_NUMBER,
         /* eslint-disable max-len */
-        body: `Hi ${msg.name}. Just a reminder that you have an appointment coming up.`,
+        body: msg.body,
         /* eslint-enable max-len */
       };
 
