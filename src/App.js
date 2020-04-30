@@ -16,6 +16,7 @@ class App extends Component {
       showDialog: false,
       msg: "",
       option: "",
+      customer: true,
     };
   }
 
@@ -36,7 +37,7 @@ class App extends Component {
       dialogMsg = "Enter your Phone Number to schedule a Call!";
       requestType = "call";
     } else {
-      dialogMsg = "Enter your Phone Number to get Message Updates!";
+      dialogMsg = "Enter your Phone Number to get SMS Updates!";
       requestType = "msg";
     }
     this.setState({ showDialog: true, msg: dialogMsg, option: requestType });
@@ -77,8 +78,9 @@ class App extends Component {
     });
 
     channel.on("memberJoined", (member) => {
+      this.setState({ customer: false });
       this.addMessage({
-        body: `${member.identity} has joined the channel.`,
+        body: `Our agent ${member.identity} has joined the channel.`,
         type: "info",
       });
     });
@@ -151,7 +153,7 @@ class App extends Component {
                 .join()
                 .then(() => {
                   this.addMessage({
-                    body: `You can ask your queries here as...`,
+                    body: `You are assigned a name ${this.state.username}`,
                     type: "info",
                   });
                   window.addEventListener("beforeunload", () =>

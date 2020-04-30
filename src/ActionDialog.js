@@ -4,6 +4,8 @@ import { Dropdown } from "semantic-ui-react";
 import $ from "jquery";
 import "./ActionDialog.css";
 import templateMessages from "./templateMessages";
+import classNames from "classnames";
+import CountryCodes from "./countryCodes";
 
 const Twilio = require("twilio-client");
 
@@ -23,45 +25,16 @@ class ActionDialog extends Component {
       countryCode: "",
       currentNumber: "",
       log: "Connecting...",
-      callDetails: "",
-      msgDetails: "",
-      muted: false,
-      onPhone: false,
       phoneNo: "",
-      countries: [
-        {
-          text: "United States",
-          key: "1",
-          icon: "us flag",
-          value: "1",
-        },
-        { value: "44", text: "Great Britain", key: "44", icon: "gb flag" },
-        { value: "57", text: "Colombia", key: "57", icon: "co flag" },
-        { value: "593", text: "Ecuador", key: "593", icon: "ec flag" },
-        { value: "372", text: "Estonia", key: "372", icon: "ee flag" },
-        { value: "49", text: "Germany", key: "49", icon: "de flag" },
-        { value: "852", text: "Hong Kong", key: "852", icon: "hk flag" },
-        { value: "353", text: "Ireland", key: "353", icon: "ie flag" },
-        { value: "65", text: "Singapore", key: "65", icon: "sg flag" },
-        { value: "44", text: "Spain", key: "34", icon: "es flag" },
-        { value: "55", text: "Brazil", key: "55", icon: "br flag" },
-        { value: "91", text: "India", key: "91", icon: "in flag" },
-      ],
-      connection: null,
+      countries: CountryCodes,
+      error: false,
     };
-  }
-
-  componentDidMount() {
-    this.getMsgUpdates();
   }
 
   handleDialog = () => {
     this.props.closeDialog();
   };
 
-  async getMsgUpdates() {
-    await $.get("/messages/get");
-  }
   async handleChange(event, data) {
     await this.setState({
       countryCode: data.value,
@@ -75,8 +48,15 @@ class ActionDialog extends Component {
   }
 
   handleEventAction = () => {
-    if (this.props.option === "call") this.callUser();
-    else this.sendMessageUpdates();
+    if (this.state.phoneNo !== "") {
+      if (this.props.option === "call") this.callUser();
+      else this.sendMessageUpdates();
+      this.setState({ error: false });
+    } else {
+      this.setState({
+        error: true,
+      });
+    }
   };
 
   async sendMessageUpdates() {
@@ -118,7 +98,7 @@ class ActionDialog extends Component {
       <div className="container">
         <label>{this.props.msg}</label>
         <div className="input_fields">
-          <div className="country_code">
+          <div className="form-field">
             <Dropdown
               button
               className="icon"
@@ -131,21 +111,24 @@ class ActionDialog extends Component {
               onChange={(event, data) => this.handleChange(event, data)}
             />
           </div>
-          <input
-            type="tel"
-            id="phone_no"
-            name="firstname"
-            placeholder="Phone Number..."
-            value={this.state.phoneNo}
-            onChange={(event) => this.handleValueChange(event)}
-          ></input>
+          <div className={this.state.error ? "ui input error form-field" : ""}>
+            <input
+              type="tel"
+              id="phone_no"
+              name="firstname"
+              className="phoneNumber"
+              placeholder="Phone Number..."
+              value={this.state.phoneNo}
+              onChange={(event) => this.handleValueChange(event)}
+            ></input>
+          </div>
         </div>
         <div className="form_buttons">
           <button
             className="ui primary button"
             onClick={this.handleEventAction}
           >
-            {this.props.option === "call" ? "Call" : "Message"}
+            {this.props.option === "call" ? "Call" : "Get SMS Updates"}
           </button>
           <button className="ui secondary button" onClick={this.handleDialog}>
             Cancel
