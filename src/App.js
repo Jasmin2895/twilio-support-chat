@@ -100,7 +100,6 @@ class App extends Component {
       });
 
       $.getJSON("/token", (token) => {
-        console.log("token", token);
         this.setState({ username: token.identity });
         resolve(token);
       }).fail(() => {

@@ -16,7 +16,6 @@ class Message extends Component {
       placeRight: this.props.me,
       placeLeft: !this.props.me,
     });
-    console.log("message", msgClass);
     return (
       <div className="Message">
         <div className="chats">

@@ -85,7 +85,6 @@ class ActionDialog extends Component {
       msg.phoneNumber = phoneNumber;
     });
 
-    console.log("templateMessages", templateMessages);
     // call simple sms api
 
     // call the notification api to set the data in the db
@@ -97,7 +96,6 @@ class ActionDialog extends Component {
   // getToken method
   async getToken() {
     let data = await $.getJSON("/token");
-    console.log("token phone call", data);
     // Setup Twilio.Device
     Twilio.Device.setup(data.tokenCall);
 
@@ -114,10 +112,8 @@ class ActionDialog extends Component {
   async callUser() {
     let phoneNumber = `+${this.state.countryCode}${this.state.phoneNo}`;
     let call = await $.post("/call", { number: phoneNumber });
-    console.log("call details", call);
   }
   render() {
-    console.log("option", this.props.option);
     return (
       <div className="container">
         <label>{this.props.msg}</label>
