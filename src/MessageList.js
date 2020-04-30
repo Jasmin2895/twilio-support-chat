@@ -9,6 +9,7 @@ class MessageList extends Component {
     messages: PropTypes.arrayOf(PropTypes.object),
     msg: PropTypes.string,
     show: PropTypes.bool,
+    requestType: PropTypes.string,
   };
 
   static defaultProps = {
@@ -31,7 +32,11 @@ class MessageList extends Component {
           <Message key={i} {...message} />
         ))}
         {this.props.show && (
-          <PhoneCall msg={this.props.msg} closeDialog={this.handleMsgDialog} />
+          <PhoneCall
+            msg={this.props.msg}
+            option={this.props.requestType}
+            closeDialog={this.handleMsgDialog}
+          />
         )}
       </div>
     );

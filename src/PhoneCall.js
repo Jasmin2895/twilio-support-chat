@@ -1,14 +1,16 @@
 import React, { Component } from "react";
-import { Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import { Dropdown } from "semantic-ui-react";
-import { Flag, Segment } from "semantic-ui-react";
 import $ from "jquery";
 import "./PhoneCall.css";
+import templateMessages from "./templateMessages";
+
 const Twilio = require("twilio-client");
+
 class PhoneCall extends Component {
   static propTypes = {
     msg: PropTypes.string,
+    option: PropTypes.option,
   };
 
   static defaultProps = {
@@ -18,7 +20,7 @@ class PhoneCall extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      countryCode: "1",
+      countryCode: "",
       currentNumber: "",
       log: "Connecting...",
       callDetails: "",
@@ -58,31 +60,39 @@ class PhoneCall extends Component {
   };
 
   async getMsgUpdates() {
-    // const data = await $.post("/messages/create", { number: "+918890378033" });
     await $.get("/messages/get");
-    // await $.post("/whatsapp", { number: "+918890378033" });
   }
   async handleChange(event, data) {
-    console.log("event data", event, data.value);
     await this.setState({
       countryCode: data.value,
     });
-    console.log("country code", this.state.countryCode);
   }
 
   async handleValueChange(event) {
-    console.log("handleValueChange", event.target.value);
     await this.setState({
       phoneNo: event.target.value,
     });
-
-    console.log("state", this.state.phoneNo);
   }
 
-  handleCallUser = () => {
-    console.log("handleCallUser", this.state.phoneNo);
-    this.devicFunctions();
+  handleEventAction = () => {
+    if (this.props.option === "call") this.callUser();
+    else this.sendMessageUpdates();
   };
+
+  async sendMessageUpdates() {
+    let phoneNumber = `+${this.state.countryCode}${this.state.phoneNo}`;
+    templateMessages.map((msg) => {
+      msg.phoneNumber = phoneNumber;
+    });
+
+    console.log("templateMessages", templateMessages);
+    // call simple sms api
+
+    // call the notification api to set the data in the db
+    templateMessages.map(async (msg) => {
+      await $.post("/messages", msg);
+    });
+  }
 
   // getToken method
   async getToken() {
@@ -96,44 +106,18 @@ class PhoneCall extends Component {
       console.log("Connected!");
     });
 
-    // let payload = {
-    //   to: "+918890378033",
-    //   from: process.env.TWILIO_NUMBER,
-    // };
-    // Twilio.Device.connect(payload);
-    // console.log("Twilio device", Twilio.Device.connect());
     Twilio.Device.disconnect(() => {
       console.log("Call ended!");
     });
   }
 
-  async devicFunctions() {
-    let dialNumber = `+${this.state.countryCode}${this.state.phoneNo}`;
-    let call = await $.post("/call", { number: dialNumber });
+  async callUser() {
+    let phoneNumber = `+${this.state.countryCode}${this.state.phoneNo}`;
+    let call = await $.post("/call", { number: phoneNumber });
     console.log("call details", call);
-    //dial the number
-
-    // console.log("dialNo", dialNumber);
-    // console.log("Calling " + dialNumber + "...");
-    // Twilio.Device.connect({ To: dialNumber });
-    // dial the number
-    // device.on("ready", (device) => {
-    //   console.log("Twilio device ready!", device);
-    // });
-    // device.on("error", (error) => {
-    //   console.log("Twilio device error!", error.code, error.message);
-    // });
-    // device.on("connect", (conn) => {
-    //   console.log("Call Successfully estabilished!");
-    // });
-    // device.on("disconnect", (conn) => {
-    //   console.log("Call ended.");
-    // });
-    // device.on("incoming", (conn) => {
-    //   console.log("Incoming connection from", conn.parameters.From);
-    // });
   }
   render() {
+    console.log("option", this.props.option);
     return (
       <div className="container">
         <label>{this.props.msg}</label>
@@ -161,8 +145,11 @@ class PhoneCall extends Component {
           ></input>
         </div>
         <div className="form_buttons">
-          <button className="ui primary button" onClick={this.handleCallUser}>
-            Call
+          <button
+            className="ui primary button"
+            onClick={this.handleEventAction}
+          >
+            {this.props.option === "call" ? "Call" : "Message"}
           </button>
           <button className="ui secondary button" onClick={this.handleDialog}>
             Cancel

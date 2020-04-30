@@ -6,16 +6,16 @@ const Schema = mongoose.Schema;
 const Twilio = require("twilio");
 
 const MessageSchema = new Schema({
-  message: { type: String, required: true },
-  from: String,
-  to: String,
+  body: String,
+  phoneNumber: String,
   notification: Number,
   timeZone: String,
   time: { type: Date, index: true },
 });
 
 //requiresNotification method
-MessageSchema.methods.requiresNotification = (date) => {
+MessageSchema.methods.requiresNotification = function (date) {
+  console.log("requiresNotification", date, this, this.time, this.timeZone);
   return (
     Math.round(
       moment
@@ -28,13 +28,16 @@ MessageSchema.methods.requiresNotification = (date) => {
 };
 
 //send notifications method
-MessageSchema.statics.sendNotifications = (callback) => {
+MessageSchema.statics.sendNotifications = function (callback) {
   // now
   const searchDate = new Date();
+  console.log("searchDate", searchDate);
   Messages.find().then(function (messages) {
+    console.log("messages", messages);
     messages = messages.filter(function (message) {
       return message.requiresNotification(searchDate);
     });
+    console.log("messages after", messages);
     if (messages.length > 0) {
       sendNotifications(messages);
     }
@@ -46,11 +49,13 @@ MessageSchema.statics.sendNotifications = (callback) => {
    */
 
   function sendNotifications(msgs) {
+    console.log("first here", msgs);
     const client = new Twilio(
       process.env.TWILIO_ACCOUNT_SID,
       process.env.TWILIO_AUTH_TOKEN
     );
     msgs.forEach(function (msg) {
+      console.log("msg inside sendNotifications", msg);
       // Create options to send the message
       const options = {
         to: `+ ${msg.phoneNumber}`,
