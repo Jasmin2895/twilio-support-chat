@@ -9,6 +9,7 @@ const Twilio = require("twilio-client");
 class PhoneCall extends Component {
   static propTypes = {
     msg: PropTypes.string,
+    option: PropTypes.option,
   };
 
   static defaultProps = {
@@ -77,9 +78,14 @@ class PhoneCall extends Component {
     console.log("state", this.state.phoneNo);
   }
 
-  handleCallUser = () => {
+  handleEventAction = () => {
     console.log("handleCallUser", this.state.phoneNo);
-    this.devicFunctions();
+    if (this.props.option === "call") this.callUser();
+    else this.sendMessageUpdates();
+  };
+
+  sendMessageUpdates = () => {
+    console.log("sendMessageUpdates");
   };
 
   // getToken method
@@ -99,12 +105,14 @@ class PhoneCall extends Component {
     });
   }
 
-  async devicFunctions() {
+  async callUser() {
+    console.log("callUser");
     let dialNumber = `+${this.state.countryCode}${this.state.phoneNo}`;
     let call = await $.post("/call", { number: dialNumber });
     console.log("call details", call);
   }
   render() {
+    console.log("option", this.props.option);
     return (
       <div className="container">
         <label>{this.props.msg}</label>
@@ -132,8 +140,11 @@ class PhoneCall extends Component {
           ></input>
         </div>
         <div className="form_buttons">
-          <button className="ui primary button" onClick={this.handleCallUser}>
-            Call
+          <button
+            className="ui primary button"
+            onClick={this.handleEventAction}
+          >
+            {this.props.option === "call" ? "Call" : "Message"}
           </button>
           <button className="ui secondary button" onClick={this.handleDialog}>
             Cancel

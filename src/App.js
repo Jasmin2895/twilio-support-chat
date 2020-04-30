@@ -16,6 +16,7 @@ class App extends Component {
       channel: null,
       showDialog: false,
       msg: "",
+      option: "",
     };
   }
 
@@ -30,11 +31,16 @@ class App extends Component {
   // };
 
   handleSelectIcon = (eventType) => {
-    let dialogMsg = "";
-    if (eventType.toLowerCase() === "call")
+    let dialogMsg = "",
+      requestType = "";
+    if (eventType.toLowerCase() === "call") {
       dialogMsg = "Enter your Phone Number to schedule a Call!";
-    else dialogMsg = "Enter your Phone Number to get Message Updates!";
-    this.setState({ showDialog: true, msg: dialogMsg });
+      requestType = "call";
+    } else {
+      dialogMsg = "Enter your Phone Number to get Message Updates!";
+      requestType = "msg";
+    }
+    this.setState({ showDialog: true, msg: dialogMsg, option: requestType });
   };
 
   createChatClient = (token) => {
@@ -176,6 +182,7 @@ class App extends Component {
         <MessageList
           show={this.state.showDialog}
           msg={this.state.msg}
+          requestType={this.state.option}
           messages={this.state.messages}
           closeDialog={this.handleMsgDialog}
         />
