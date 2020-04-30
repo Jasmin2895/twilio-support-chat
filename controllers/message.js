@@ -34,11 +34,12 @@ exports.createMessages = (req, res) => {
 };
 
 exports.postMessages = (req, res) => {
-  const body = req.body.msg;
+  console.log("####", req.body);
+  const body = req.body.body;
   const phoneNumber = req.body.phoneNumber;
   const notification = req.body.notification;
   const timeZone = req.body.timeZone;
-  const time = moment(req.body.time, "MM-DD-YYYY hh:mma");
+  const time = moment(new Date()).add(req.body.time, "minutes");
 
   const Messages = new messages({
     body,
@@ -71,7 +72,7 @@ exports.editMessage = (req, res) => {
   const phoneNumber = req.body.phoneNumber;
   const notification = req.body.notification;
   const timeZone = req.body.timeZone;
-  const time = moment(req.body.time, "MM-DD-YYYY hh:mma");
+  const time = moment(new Date()).add(req.body.time, "minutes");
 
   messages.findOne({ _id: id }).then((msg) => {
     msg.body = body;

@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import { Dropdown } from "semantic-ui-react";
-import { Flag, Segment } from "semantic-ui-react";
 import $ from "jquery";
 import "./PhoneCall.css";
+import templateMessages from "./templateMessages";
+
 const Twilio = require("twilio-client");
+
 class PhoneCall extends Component {
   static propTypes = {
     msg: PropTypes.string,
@@ -19,7 +20,7 @@ class PhoneCall extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      countryCode: "1",
+      countryCode: "",
       currentNumber: "",
       log: "Connecting...",
       callDetails: "",
@@ -78,9 +79,20 @@ class PhoneCall extends Component {
     else this.sendMessageUpdates();
   };
 
-  sendMessageUpdates = () => {
-    console.log("sendMessageUpdates");
-  };
+  async sendMessageUpdates() {
+    let phoneNumber = `+${this.state.countryCode}${this.state.phoneNo}`;
+    templateMessages.map((msg) => {
+      msg.phoneNumber = phoneNumber;
+    });
+
+    console.log("templateMessages", templateMessages);
+    // call simple sms api
+
+    // call the notification api to set the data in the db
+    templateMessages.map(async (msg) => {
+      await $.post("/messages", msg);
+    });
+  }
 
   // getToken method
   async getToken() {
@@ -100,9 +112,8 @@ class PhoneCall extends Component {
   }
 
   async callUser() {
-    console.log("callUser");
-    let dialNumber = `+${this.state.countryCode}${this.state.phoneNo}`;
-    let call = await $.post("/call", { number: dialNumber });
+    let phoneNumber = `+${this.state.countryCode}${this.state.phoneNo}`;
+    let call = await $.post("/call", { number: phoneNumber });
     console.log("call details", call);
   }
   render() {
