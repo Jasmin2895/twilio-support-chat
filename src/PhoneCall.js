@@ -58,9 +58,7 @@ class PhoneCall extends Component {
   };
 
   async getMsgUpdates() {
-    // const data = await $.post("/messages/create", { number: "+918890378033" });
     await $.get("/messages/get");
-    // await $.post("/whatsapp", { number: "+918890378033" });
   }
   async handleChange(event, data) {
     console.log("event data", event, data.value);
@@ -96,12 +94,6 @@ class PhoneCall extends Component {
       console.log("Connected!");
     });
 
-    // let payload = {
-    //   to: "+918890378033",
-    //   from: process.env.TWILIO_NUMBER,
-    // };
-    // Twilio.Device.connect(payload);
-    // console.log("Twilio device", Twilio.Device.connect());
     Twilio.Device.disconnect(() => {
       console.log("Call ended!");
     });
@@ -111,27 +103,6 @@ class PhoneCall extends Component {
     let dialNumber = `+${this.state.countryCode}${this.state.phoneNo}`;
     let call = await $.post("/call", { number: dialNumber });
     console.log("call details", call);
-    //dial the number
-
-    // console.log("dialNo", dialNumber);
-    // console.log("Calling " + dialNumber + "...");
-    // Twilio.Device.connect({ To: dialNumber });
-    // dial the number
-    // device.on("ready", (device) => {
-    //   console.log("Twilio device ready!", device);
-    // });
-    // device.on("error", (error) => {
-    //   console.log("Twilio device error!", error.code, error.message);
-    // });
-    // device.on("connect", (conn) => {
-    //   console.log("Call Successfully estabilished!");
-    // });
-    // device.on("disconnect", (conn) => {
-    //   console.log("Call ended.");
-    // });
-    // device.on("incoming", (conn) => {
-    //   console.log("Incoming connection from", conn.parameters.From);
-    // });
   }
   render() {
     return (

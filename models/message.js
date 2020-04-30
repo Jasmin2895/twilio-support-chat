@@ -6,9 +6,8 @@ const Schema = mongoose.Schema;
 const Twilio = require("twilio");
 
 const MessageSchema = new Schema({
-  message: { type: String, required: true },
-  from: String,
-  to: String,
+  body: String,
+  phoneNumber: String,
   notification: Number,
   timeZone: String,
   time: { type: Date, index: true },
