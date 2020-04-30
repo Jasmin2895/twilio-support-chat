@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Message from "./Message";
-import PhoneCall from "./PhoneCall";
+import ActionDialog from "./ActionDialog";
 import "./MessageList.css";
 
 class MessageList extends Component {
@@ -32,7 +32,7 @@ class MessageList extends Component {
           <Message key={i} {...message} />
         ))}
         {this.props.show && (
-          <PhoneCall
+          <ActionDialog
             msg={this.props.msg}
             option={this.props.requestType}
             closeDialog={this.handleMsgDialog}

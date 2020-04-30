@@ -12,11 +12,6 @@ class Message extends Component {
   };
 
   render() {
-    const classes = classNames("Message", {
-      log: !this.props.me && !this.props.type,
-      me: this.props.me,
-      info: this.props.type,
-    });
     const msgClass = classNames("message-data-name", {
       placeRight: this.props.me,
       placeLeft: !this.props.me,

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import MessageForm from "./MessageForm";
 import MessageList from "./MessageList";
 import MessageHeader from "./MessageHeader";
-import PhoneCall from "./PhoneCall";
 import $ from "jquery";
 import "./App.css";
 const Chat = require("twilio-chat");
@@ -153,7 +152,7 @@ class App extends Component {
                 .join()
                 .then(() => {
                   this.addMessage({
-                    body: `You can ask your queries here as ${this.state.username}`,
+                    body: `You can ask your queries here as...`,
                     type: "info",
                   });
                   window.addEventListener("beforeunload", () =>

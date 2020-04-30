@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Dropdown } from "semantic-ui-react";
 import $ from "jquery";
-import "./PhoneCall.css";
+import "./ActionDialog.css";
 import templateMessages from "./templateMessages";
 
 const Twilio = require("twilio-client");
 
-class PhoneCall extends Component {
+class ActionDialog extends Component {
   static propTypes = {
     msg: PropTypes.string,
     option: PropTypes.option,
@@ -160,4 +160,4 @@ class PhoneCall extends Component {
   }
 }
 
-export default PhoneCall;
+export default ActionDialog;
