@@ -58,7 +58,6 @@ MessageSchema.statics.sendNotifications = function (callback) {
 
       client.messages.create(options, function (err, response) {
         if (err) {
-          // Just log it for now
           console.error(err);
         } else {
           let masked = msg.phoneNumber.substr(0, msg.phoneNumber.length - 5);
