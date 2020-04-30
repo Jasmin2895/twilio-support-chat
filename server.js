@@ -1,61 +1,15 @@
 require("dotenv").config();
 
 // Node/Express
-const http = require("http");
-const mongoose = require("mongoose");
 const Twilio = require("twilio");
 const Chance = require("chance");
 const express = require("express");
 const { urlencoded } = require("body-parser");
 const ClientCapability = Twilio.jwt.ClientCapability;
 const VoiceResponse = Twilio.twiml.VoiceResponse;
-const { MongoClient } = require("mongodb");
-const mongo = require("mongodb");
 const message = require("./routes/message");
-const assert = require("assert");
 const db = require("./db");
 const scheduler = require("./scheduler");
-
-// const mongi_uri = `mongodb+srv://jasmin:qwerty@123@firstcluster-piupa.mongodb.net/test?retryWrites=true&w=majority`;
-
-// const mongoDbUri = "mongodb://localhost:27017";
-// // const client = new MongoClient(mongi_uri);
-// const client = new MongoClient(mongoDbUri);
-
-// const dbName = "twilio";
-
-// async function main() {
-//   try {
-//     // Connect to the MongoDB cluster
-//     // await client.connect();
-//     await client.connect((err) => {
-//       assert.equal(null, err);
-//       console.log("Connected successfully to server");
-//     });
-//     await client.db(dbName);
-
-//     // await client.close();
-//     // Make the appropriate DB calls
-//     // await listDatabases(client);
-//   } catch (e) {
-//     console.error(e);
-//   } finally {
-//     await client.close();
-//   }
-// }
-// // async function listDatabases(client) {
-// //   databasesList = await client.db().admin().listDatabases();
-
-// //   // console.log("databasesList", databasesList);
-// //   console.log("Databases:");
-// //   const db = client.db("twilio");
-// //   db.on("error", console.error.bind(console, "MongoDB connection error:"));
-// //   db.on("connected", console.log("Mongo db connected!!!"));
-// //   // databasesList.databases.forEach((db) => console.log(` - ${db.name}`));
-// // }
-// main();
-
-// notification
 
 const app = express();
 app.use(express.static(__dirname + "/public"));
@@ -128,7 +82,7 @@ app.post("/call", (request, response) => {
       from: process.env.TWILIO_NUMBER,
     })
     .then((call) => {
-      console.log("call", call);
+      res.send(call);
     });
 
   response.type("text/xml");
@@ -136,7 +90,7 @@ app.post("/call", (request, response) => {
 });
 
 app.get("/completed", (request, response) => {
-  console.log("completed call", request, response);
+  // console.log("completed call", request, response);
 });
 
 app.post("/whatsapp", (request, response) => {
