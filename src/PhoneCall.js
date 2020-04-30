@@ -62,24 +62,18 @@ class PhoneCall extends Component {
     await $.get("/messages/get");
   }
   async handleChange(event, data) {
-    console.log("event data", event, data.value);
     await this.setState({
       countryCode: data.value,
     });
-    console.log("country code", this.state.countryCode);
   }
 
   async handleValueChange(event) {
-    console.log("handleValueChange", event.target.value);
     await this.setState({
       phoneNo: event.target.value,
     });
-
-    console.log("state", this.state.phoneNo);
   }
 
   handleEventAction = () => {
-    console.log("handleCallUser", this.state.phoneNo);
     if (this.props.option === "call") this.callUser();
     else this.sendMessageUpdates();
   };
