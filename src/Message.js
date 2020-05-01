@@ -9,6 +9,7 @@ class Message extends Component {
     body: PropTypes.string.isRequired,
     me: PropTypes.bool,
     type: PropTypes.string,
+    action: PropTypes.string,
   };
 
   render() {
@@ -26,6 +27,11 @@ class Message extends Component {
             </div>
           ) : (
             <span className="u1 chat">{this.props.body}</span>
+          )}
+          {this.props.action ? (
+            <span className="u1 chat">{this.props.action}</span>
+          ) : (
+            ""
           )}
         </div>
       </div>

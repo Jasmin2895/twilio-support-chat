@@ -9,7 +9,6 @@ const ClientCapability = Twilio.jwt.ClientCapability;
 const VoiceResponse = Twilio.twiml.VoiceResponse;
 const message = require("./routes/message");
 const db = require("./db");
-const scheduler = require("./scheduler");
 
 const app = express();
 app.use(express.static(__dirname + "/public"));
@@ -69,12 +68,11 @@ app.post("/voice", (request, response) => {
 app.post("/call", (request, response) => {
   const accountSid = process.env.TWILIO_ACCOUNT_SID;
   const authToken = process.env.TWILIO_AUTH_TOKEN;
-
+  let voiceResponse = new VoiceResponse();
   const client = Twilio(accountSid, authToken);
   client.calls
     .create({
       method: "GET",
-      sendDigits: "1234#",
       record: true,
       twiml:
         "<Response><Gather input='speech' enhanced='true' timeout='60' speechModel='phone_call' method='/completed'><Say>Please tell us how we can help you today. This call will be recorded for better service!</Say></Gather></Response>",
@@ -82,40 +80,29 @@ app.post("/call", (request, response) => {
       from: process.env.TWILIO_NUMBER,
     })
     .then((call) => {
-      res.send(call);
+      response.type("text/xml");
+      response.send({ result: "Call successfully placed!" });
     });
-
-  response.type("text/xml");
-  response.send(voiceResponse.toString());
 });
 
 app.get("/completed", (request, response) => {
-  // console.log("completed call", request, response);
+  response.send("Call Completed!");
 });
 
-app.post("/whatsapp", (request, response) => {
+app.post("/sms", (request, response) => {
   const accountSid = process.env.TWILIO_ACCOUNT_SID;
   const authToken = process.env.TWILIO_AUTH_TOKEN;
   const client = Twilio(accountSid, authToken);
   client.messages
     .create({
-      to: "+919828350824",
-      body: "Thanks for opting SMS service, you will be infromed about",
-      from: "+19798595165",
+      to: request.body.number,
+      body:
+        "Hi!, Thanks for opting our SMS service, you will be recieving all updates via SMS.",
+      from: process.env.TWILIO_NUMBER,
     })
-    .then((message) => res.send(message.sid));
+    .then((message) => response.send(message.sid));
 });
 
-app.post("/sms", (req, res) => {
-  const MessagingResponse = Twilio.twiml.MessagingResponse;
-  const twiml = new MessagingResponse();
-  twiml.message("The Robots are coming! Head for the hills!");
-
-  res.writeHead(200, { "Content-Type": "text/xml" });
-  res.end(twiml.toString());
-});
-
-scheduler.start();
 app.listen(3002, () => {
   console.log("Programmable Chat token server listening on port 3002!");
 });

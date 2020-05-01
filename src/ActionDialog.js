@@ -4,7 +4,6 @@ import { Dropdown } from "semantic-ui-react";
 import $ from "jquery";
 import "./ActionDialog.css";
 import templateMessages from "./templateMessages";
-import classNames from "classnames";
 import CountryCodes from "./countryCodes";
 
 const Twilio = require("twilio-client");
@@ -28,6 +27,7 @@ class ActionDialog extends Component {
       phoneNo: "",
       countries: CountryCodes,
       error: false,
+      successMsg: "",
     };
   }
 
@@ -66,11 +66,16 @@ class ActionDialog extends Component {
     });
 
     // call simple sms api
-
+    let data = await $.post("/sms", { number: phoneNumber });
     // call the notification api to set the data in the db
     templateMessages.map(async (msg) => {
       await $.post("/messages", msg);
     });
+
+    if (data) {
+      this.handleDialog();
+      this.props.sendActionResponse("msg");
+    }
   }
 
   // getToken method
@@ -89,9 +94,11 @@ class ActionDialog extends Component {
     });
   }
 
-  async callUser() {
+  callUser() {
     let phoneNumber = `+${this.state.countryCode}${this.state.phoneNo}`;
-    let call = await $.post("/call", { number: phoneNumber });
+    $.post("/call", { number: phoneNumber });
+    this.props.sendActionResponse("call");
+    this.handleDialog();
   }
   render() {
     return (

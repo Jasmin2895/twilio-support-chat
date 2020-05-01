@@ -3,6 +3,7 @@ const path = require("path");
 const messages = require("../models/message");
 const moment = require("moment");
 const momentTimeZone = require("moment-timezone");
+const scheduler = require("./../scheduler");
 
 const getTimeZones = function () {
   return momentTimeZone.tz.names();
@@ -32,7 +33,7 @@ exports.createMessages = (req, res) => {
   });
 };
 
-exports.postMessages = (req, res) => {
+exports.postMessages = async (req, res) => {
   const body = req.body.body;
   const phoneNumber = req.body.phoneNumber;
   const notification = req.body.notification;
@@ -47,9 +48,10 @@ exports.postMessages = (req, res) => {
     time,
   });
 
-  Messages.save().then(() => {
+  await Messages.save().then(() => {
     res.send({ result: "Data saved successfully" });
   });
+  scheduler.start();
 };
 
 exports.getOneMessage = (req, res) => {
