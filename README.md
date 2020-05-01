@@ -71,6 +71,8 @@ This project uses `proxy` so the server side will running on port `3002` and cli
 
 5. This project uses **mongodb** so set up mongodb locally and in the file `db.js` replace username and password with your name and password.
 
+## License
 
+[MIT](http://www.opensource.org/licenses/mit-license.html)
 
 
