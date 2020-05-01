@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import MessageForm from "./MessageForm";
 import MessageList from "./MessageList";
 import MessageHeader from "./MessageHeader";
-import PhoneCall from "./PhoneCall";
 import $ from "jquery";
 import "./App.css";
 const Chat = require("twilio-chat");
@@ -17,18 +16,19 @@ class App extends Component {
       showDialog: false,
       msg: "",
       option: "",
+      customer: true,
     };
   }
 
-  // componentDidMount = () => {
-  //   this.getToken()
-  //     .then(this.createChatClient)
-  //     .then(this.joinPersonalChannel)
-  //     .then(this.configureChannelEvents)
-  //     .catch((error) => {
-  //       this.addMessage({ body: `Error: ${error.message}` });
-  //     });
-  // };
+  componentDidMount = () => {
+    this.getToken()
+      .then(this.createChatClient)
+      .then(this.joinPersonalChannel)
+      .then(this.configureChannelEvents)
+      .catch((error) => {
+        this.addMessage({ body: `Error: ${error.message}` });
+      });
+  };
 
   handleSelectIcon = (eventType) => {
     let dialogMsg = "",
@@ -37,7 +37,7 @@ class App extends Component {
       dialogMsg = "Enter your Phone Number to schedule a Call!";
       requestType = "call";
     } else {
-      dialogMsg = "Enter your Phone Number to get Message Updates!";
+      dialogMsg = "Enter your Phone Number to get SMS Updates!";
       requestType = "msg";
     }
     this.setState({ showDialog: true, msg: dialogMsg, option: requestType });
@@ -78,8 +78,9 @@ class App extends Component {
     });
 
     channel.on("memberJoined", (member) => {
+      this.setState({ customer: false });
       this.addMessage({
-        body: `${member.identity} has joined the channel.`,
+        body: `Our agent ${member.identity} has joined the channel.`,
         type: "info",
       });
     });
@@ -101,7 +102,6 @@ class App extends Component {
       });
 
       $.getJSON("/token", (token) => {
-        console.log("token", token);
         this.setState({ username: token.identity });
         resolve(token);
       }).fail(() => {
@@ -125,7 +125,7 @@ class App extends Component {
       this.addMessage({ body: "Initiating a chat with a customer" });
       chatClient
         .createChannel({
-          uniqueName: "support_chat4",
+          uniqueName: "support_chat5",
           friendlyName: "Customer Chat Support",
         })
         .then(() => {
@@ -141,7 +141,7 @@ class App extends Component {
         .getSubscribedChannels()
         .then(() => {
           chatClient
-            .getChannelByUniqueName("support_chat4")
+            .getChannelByUniqueName("support_chat5")
             .then((channel) => {
               this.addMessage({
                 body: "Welcome to support chat...",
@@ -153,7 +153,7 @@ class App extends Component {
                 .join()
                 .then(() => {
                   this.addMessage({
-                    body: `You can ask your queries here as ${this.state.username}`,
+                    body: `You are assigned a name ${this.state.username}`,
                     type: "info",
                   });
                   window.addEventListener("beforeunload", () =>

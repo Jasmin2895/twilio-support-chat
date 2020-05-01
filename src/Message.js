@@ -9,19 +9,14 @@ class Message extends Component {
     body: PropTypes.string.isRequired,
     me: PropTypes.bool,
     type: PropTypes.string,
+    action: PropTypes.string,
   };
 
   render() {
-    const classes = classNames("Message", {
-      log: !this.props.me && !this.props.type,
-      me: this.props.me,
-      info: this.props.type,
-    });
     const msgClass = classNames("message-data-name", {
       placeRight: this.props.me,
       placeLeft: !this.props.me,
     });
-    console.log("message", msgClass);
     return (
       <div className="Message">
         <div className="chats">
@@ -32,6 +27,11 @@ class Message extends Component {
             </div>
           ) : (
             <span className="u1 chat">{this.props.body}</span>
+          )}
+          {this.props.action ? (
+            <span className="u1 chat">{this.props.action}</span>
+          ) : (
+            ""
           )}
         </div>
       </div>

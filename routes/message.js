@@ -28,4 +28,5 @@ router.post("/:id/edit", (req, res) => {
 router.post("/:id/delete", (req, res) => {
   messageController.delete(req, res);
 });
+
 module.exports = router;

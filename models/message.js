@@ -13,9 +13,7 @@ const MessageSchema = new Schema({
   time: { type: Date, index: true },
 });
 
-//requiresNotification method
 MessageSchema.methods.requiresNotification = function (date) {
-  console.log("requiresNotification", date, this, this.time, this.timeZone);
   return (
     Math.round(
       moment
@@ -27,17 +25,13 @@ MessageSchema.methods.requiresNotification = function (date) {
   );
 };
 
-//send notifications method
 MessageSchema.statics.sendNotifications = function (callback) {
   // now
   const searchDate = new Date();
-  console.log("searchDate", searchDate);
   Messages.find().then(function (messages) {
-    console.log("messages", messages);
     messages = messages.filter(function (message) {
       return message.requiresNotification(searchDate);
     });
-    console.log("messages after", messages);
     if (messages.length > 0) {
       sendNotifications(messages);
     }
@@ -49,14 +43,11 @@ MessageSchema.statics.sendNotifications = function (callback) {
    */
 
   function sendNotifications(msgs) {
-    console.log("first here", msgs);
     const client = new Twilio(
       process.env.TWILIO_ACCOUNT_SID,
       process.env.TWILIO_AUTH_TOKEN
     );
     msgs.forEach(function (msg) {
-      console.log("msg inside sendNotifications", msg);
-      // Create options to send the message
       const options = {
         to: `+ ${msg.phoneNumber}`,
         from: process.env.TWILIO_NUMBER,
@@ -65,21 +56,16 @@ MessageSchema.statics.sendNotifications = function (callback) {
         /* eslint-enable max-len */
       };
 
-      // Send the message!
       client.messages.create(options, function (err, response) {
         if (err) {
-          // Just log it for now
           console.error(err);
         } else {
-          // Log the last few digits of a phone number
           let masked = msg.phoneNumber.substr(0, msg.phoneNumber.length - 5);
           masked += "*****";
-          console.log(`Message sent to ${masked}`);
         }
       });
     });
 
-    // Don't wait on success/failure, just indicate all messages have been
     // queued for delivery
     if (callback) {
       callback.call();

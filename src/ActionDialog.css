@@ -9,7 +9,7 @@
   clear: both;
 }
 
-.country_code {
+.form-field {
   margin-top: 6px;
   margin-bottom: 16px;
 }
@@ -70,4 +70,8 @@ textarea {
 .form_buttons {
   display: flex;
   justify-content: flex-end;
+}
+
+.phoneNumber {
+  width: 100%;
 }

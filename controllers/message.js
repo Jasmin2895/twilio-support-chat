@@ -3,6 +3,7 @@ const path = require("path");
 const messages = require("../models/message");
 const moment = require("moment");
 const momentTimeZone = require("moment-timezone");
+const scheduler = require("./../scheduler");
 
 const getTimeZones = function () {
   return momentTimeZone.tz.names();
@@ -13,13 +14,12 @@ exports.getMessages = (req, res) => {
     if (err) {
       return res.send(500, err);
     }
-    console.log("message", messages);
-    res.send(200, { result: messages });
+    res.send({ result: messages });
   });
 };
 
 exports.createMessages = (req, res) => {
-  res.send(200, {
+  res.send({
     result: {
       msgs: new messages({
         body: "",
@@ -33,8 +33,7 @@ exports.createMessages = (req, res) => {
   });
 };
 
-exports.postMessages = (req, res) => {
-  console.log("####", req.body);
+exports.postMessages = async (req, res) => {
   const body = req.body.body;
   const phoneNumber = req.body.phoneNumber;
   const notification = req.body.notification;
@@ -49,15 +48,16 @@ exports.postMessages = (req, res) => {
     time,
   });
 
-  Messages.save().then(() => {
-    res.send(200, { result: "Data saved successfully" });
+  await Messages.save().then(() => {
+    res.send({ result: "Data saved successfully" });
   });
+  scheduler.start();
 };
 
 exports.getOneMessage = (req, res) => {
   const id = req.params.id;
   messages.findOne({ _id: id }).then((msg) => {
-    res.send(200, {
+    res.send({
       result: {
         timeZones: getTimeZones(),
         message: msg,
@@ -82,30 +82,14 @@ exports.editMessage = (req, res) => {
     msg.time = time;
 
     msg.save().then(() => {
-      res.send(200, { result: msg });
+      res.send({ result: msg });
     });
   });
 };
 
-// exports.create = (req, res) => {
-//   var newMsg = new messages({
-//     message: "This is automated text message",
-//     to: `${process.env.TWILIO_NUMBER}`,
-//     from: req.body.number,
-//   });
-
-//   newMsg.save((err) => {
-//     if (err) {
-//       res.send(400).send("Unable to save to message database");
-//     } else {
-//       console.log("data saved successfully");
-//     }
-//   });
-// };
-
 exports.delete = (req, res, next) => {
   const id = req.params.id;
   messages.remove({ _id: id }).then(() => {
-    res.send(200, { result: "Message deleted successfully" });
+    res.send({ result: "Message deleted successfully" });
   });
 };

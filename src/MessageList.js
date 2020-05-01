@@ -1,10 +1,17 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Message from "./Message";
-import PhoneCall from "./PhoneCall";
+import ActionDialog from "./ActionDialog";
 import "./MessageList.css";
 
 class MessageList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      action: false,
+      actionMsg: "",
+    };
+  }
   static propTypes = {
     messages: PropTypes.arrayOf(PropTypes.object),
     msg: PropTypes.string,
@@ -16,6 +23,19 @@ class MessageList extends Component {
     messages: [],
   };
 
+  handleActionEvent = (action) => {
+    if (action === "call")
+      this.setState({
+        actionMsg:
+          "Your call request is registered. You will be reciveing call soon!",
+      });
+    else
+      this.setState({
+        actionMsg:
+          "Your message request registered you will recieve updates shortly!",
+      });
+  };
+
   handleMsgDialog = () => {
     this.props.closeDialog();
   };
@@ -25,16 +45,16 @@ class MessageList extends Component {
   };
 
   render() {
-    console.log("messageList Props", this.props);
     return (
       <div className="MessageList" ref={(node) => (this.node = node)}>
         {this.props.messages.map((message, i) => (
-          <Message key={i} {...message} />
+          <Message action={this.state.actionMsg} key={i} {...message} />
         ))}
         {this.props.show && (
-          <PhoneCall
+          <ActionDialog
             msg={this.props.msg}
             option={this.props.requestType}
+            sendActionResponse={this.handleActionEvent}
             closeDialog={this.handleMsgDialog}
           />
         )}
