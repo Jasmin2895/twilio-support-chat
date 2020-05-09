@@ -8,7 +8,7 @@ This is a customer support chatroom designed with the purpose of serving people 
 This application uses Node.js and  Express.js for server side and React.js for client side execution.
 
 
-![Image mage 5](https://github.com/Jasmin2895/twilio-support-chat/blob/master/public/Screenshot%202020-05-01%20at%207.46.26%20AM.png)
+![Image mage 5](https://github.com/Jasmin2895/twilio-support-chat/blob/master/public/Screenshot%202020-05-01%20at%209.05.34%20AM.png)
 
 
 ## Features
