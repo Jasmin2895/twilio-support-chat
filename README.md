@@ -58,7 +58,7 @@ npm install
 ```bash
 cp .example.env .env
 ```
-4. Run the server side and client side. 
+4. Run the server side and client side respectively. 
 
 ```bash
 node serve.js
