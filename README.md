@@ -53,7 +53,7 @@ cd twilio-support-chat
 ```bash
 npm install
 ```
-3. Set your environment variables. Replace the ids in the `.env` file with values ontained from twilio account.
+3. Set your environment variables in the config files. Replace the ids in the `.env` file with values ontained from twilio account.
 
 ```bash
 cp .example.env .env
