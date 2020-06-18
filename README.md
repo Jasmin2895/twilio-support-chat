@@ -1,7 +1,7 @@
 # Customer Support Chatroom
 
 ## About
-This is a customer support chatroom designed with the purpose of serving people when they find difficulty in connecting to the nearby stores. This chatroom service can be used by both client and user to easily communicate with each other and get the issues resolved or get the work done more efficiently. Apart from chat if the client wishes to get an update on Call or SMS he can subscribe for the features using this chatroom actions.
+This is a customer support chatroom designed with the purpose of serving people when they find difficulty in connecting to the nearby stores. This chatroom service can be used by both client and user to easily communicate with each other and get the issues resolved or get the work done more efficiently. Apart from chat if the client wishes to get an update on Call or SMS he can subscribe for the features using the different chatroom actions.
 
 ### How it works
 
