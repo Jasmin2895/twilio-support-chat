@@ -14,7 +14,7 @@ This application uses Node and  Express for server side and React for client sid
 ## Features
 - Node.js web server using [Express.js](https://npm.im/express)
 - User interface using ReactJs and Semantic-UI
-- User interface schdeule calls.
+- User interface to schdeule calls.
 - User interface schdeule message updates
 - Linting and formatting using [ESLint](https://npm.im/eslint) and [Prettier](https://npm.im/prettier)
 - Interactive configuration of environment variables upon running `npm run setup` using [`configure-env`](https://npm.im/configure-env)
