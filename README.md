@@ -67,7 +67,7 @@ node serve.js
 ```bash
 npm start
 ```
-This project uses `proxy` so the server side will be running on port `3002` and client side on port `3000`.
+`Proxy` is used which helps to run the server side will be running on port `3002` and client side on port `3000`.
 
 5. This project uses **mongodb** so set up mongodb locally and in the file `db.js` replace username and password with your username and password.
 
