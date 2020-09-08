@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: ${{ github.head_ref }}
-      - name: Generate card github action
-        uses: actions/social-card-github-action@v1
+      - name: Social card github action
+        uses: Jasmin2895/social-card-github-action@v0.1.0
         with:
           images-url: '["https://og-image.now.sh/**Hello**%20World.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fvercel-triangle-black.svg"]'
