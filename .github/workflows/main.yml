@@ -11,11 +11,16 @@ jobs:
   card-action:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Install Dependencies
-        run: npm install
+      - uses: actions/checkout@v2
+        name: Use Node.js 12.X
+      - run: npm install
       - name: Social card github action
         uses: Jasmin2895/social-card-github-action@v0.1.0
         with:
           images-url: '["https://og-image.now.sh/**Hello**%20World.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fvercel-triangle-black.svg"]'
+      - uses: actions/setup-node@v1
+        name: use actions/setup-node
+        with:
+          node-version: "12.X"
+        env:
+          CI: true
