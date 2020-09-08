@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Install Dependencies
+        run: npm install
       - name: Social card github action
         uses: Jasmin2895/social-card-github-action@v0.1.0
         with:
