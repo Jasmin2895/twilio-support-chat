@@ -24,6 +24,12 @@ jobs:
       - name: Puppeteer install
         run: PUPPETEER_PRODUCT=firefox npm i puppeteer
 
+      - name: Pull from current branch
+        run: git pull origin ${GITHUB_REF##*/}
+
+      - name: Create dist folder if note exists
+        run: mkdir -p dist
+
       - name: Open Graph social cards
         uses: Jasmin2895/open-graph-image@v1
         with:
