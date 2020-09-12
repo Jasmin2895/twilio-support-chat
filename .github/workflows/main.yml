@@ -31,8 +31,8 @@ jobs:
       - name: Open Graph social cards
         uses: Jasmin2895/open-graph-image@v1.1
         with:
-          bold-text: "Open graph image"
-          plain-text: "for social media platform"
+          bold-text: "Support Chat"
+          plain-text: "by twilio"
           theme: "dark"
 
       - name: Archive open graph image
