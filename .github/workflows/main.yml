@@ -34,3 +34,12 @@ jobs:
           bold-text: "Open graph image"
           plain-text: "for social media platform"
           theme: "dark"
+
+      - name: Archive open graph image
+        uses: actions/upload-artifact@v2
+        with:
+          name: open-graph-image
+          path: og-image.now.sh.png
+
+      - name: Download all workflow run artifacts
+        uses: actions/download-artifact@v2
