@@ -33,3 +33,4 @@ jobs:
         with:
           bold-text: "Open graph image"
           plain-text: "for social media platform"
+          theme: "dark"
