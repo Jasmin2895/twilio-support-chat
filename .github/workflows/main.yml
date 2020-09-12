@@ -18,15 +18,14 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v2
-
-      - name: delete node_module folder
-        run: find . -name "node_modules" -type d -prune -exec rm -rf '{}' +
         
       - name: Setup Node.js
         uses: actions/setup-node@v1
 
       - name: Install Dependencies
-        run: npm install
+        run: |
+          npm install
+          npm update
         
       - name: Install webshot
         run: npm i webshot-node
