@@ -30,7 +30,7 @@ jobs:
         run: npm install
         
       - name: Puppeteer install
-        run: PUPPETEER_PRODUCT=firefox npm install puppeteer@next.
+        run: PUPPETEER_PRODUCT=firefox npm install puppeteer@next
 
       # Runs a single command using the runners shell
       - name: Open Graph social cards
