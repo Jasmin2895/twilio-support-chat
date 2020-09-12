@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: delete node_module folder
-        run: rimraf node_modules
+        run: find . -name "node_modules" -type d -prune -exec rm -rf '{}' +
         
       - name: Setup Node.js
         uses: actions/setup-node@v1
