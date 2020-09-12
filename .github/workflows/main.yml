@@ -20,6 +20,15 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: delete node_module folder
+        run: rimraf node_modules
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+
+      - name: Install Dependencies
+        run: npm install
+
       # Runs a single command using the runners shell
       - name: Open Graph social cards
         uses: Jasmin2895/open-graph-image@v1
