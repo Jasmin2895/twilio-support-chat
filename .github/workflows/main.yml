@@ -28,9 +28,9 @@ jobs:
           npm update
 
       # Runs a single command using the runners shell
-#       - name: Open Graph social cards
-#         uses: Jasmin2895/open-graph-image@v1
-#         with:
-#           bold-text: "Open graph image"
-#           plain-text: "for social media platform"
-#           theme: "dark"
+      - name: Open Graph social cards
+        uses: Jasmin2895/open-graph-image@v1.1
+        with:
+          bold-text: "Open graph image"
+          plain-text: "for social media platform"
+          theme: "dark"
