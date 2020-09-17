@@ -32,7 +32,7 @@ jobs:
         uses: Jasmin2895/open-graph-image@v1.2
         with:
           bold-text: "Github CLI"
-          plain-text: "1.0"
+          plain-text: " "
           theme: "dark"
 
       - name: Archive open graph image
@@ -44,10 +44,3 @@ jobs:
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v2
         
-      - name: Generate Image
-        uses: BoyWithSilverWings/generate-og-image@1.0.3
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        with:
-          path: src/images/post-images/
