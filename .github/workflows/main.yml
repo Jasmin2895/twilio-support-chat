@@ -32,7 +32,7 @@ jobs:
         uses: Jasmin2895/open-graph-image@v1.2
         with:
           bold-text: " "
-          plain-text: "Github CLI "
+          plain-text: "abc test"
           theme: "dark"
 
       - name: Archive open graph image
