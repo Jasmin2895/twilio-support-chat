@@ -31,7 +31,7 @@ jobs:
       - name: Open Graph social cards
         uses: Jasmin2895/open-graph-image@v1.2
         with:
-          bold-text: " "
+          bold-text: "Test"
           plain-text: "abc test"
           theme: "dark"
 
