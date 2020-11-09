@@ -31,8 +31,8 @@ jobs:
       - name: Open Graph social cards
         uses: Jasmin2895/open-graph-image@v1.2
         with:
-          bold-text: "Learning Webpack Concepts and Creating your Custom Webpack Plugin."
-          plain-text: " "
+          bold-text: "Learning Webpack Concepts"
+          plain-text: "and Creating your Custom Webpack Plugin"
           theme: "dark"
 
       - name: Archive open graph image
