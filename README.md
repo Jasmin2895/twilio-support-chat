@@ -41,7 +41,7 @@ There are twilio config values required to run the application.
 
 ### Local development
 
-1. Clone this repository and `cd` into it
+1. Clone this repository and go inside the folder.
 
 ```bash
 git clone https://github.com/Jasmin2895/twilio-support-chat.git
